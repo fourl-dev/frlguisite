@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRL GUI V2</title>
+    <style>
+        /* Base styles */
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00e6;
+            --neon-purple: #8000ff;
+            --dark-bg: #0a0a12;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        /* Header and navigation */
+        header {
+            background: linear-gradient(90deg, rgba(10,10,18,0.9) 0%, rgba(16,16,32,0.9) 100%);
+            padding: 1.5rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--neon-blue);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, rgba(16,16,32,1) 0%, rgba(10,10,18,1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 0%, rgba(0, 243, 255, 0.05) 50%, transparent 100%),
+                linear-gradient(180deg, transparent 0%, rgba(255, 0, 230, 0.05) 50%, transparent 100%);
+            animation: backgroundPulse 10s infinite alternate;
+        }
+        
+        @keyframes backgroundPulse {
+            0% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+        
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 15px rgba(128, 0, 255, 0.5);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(128, 0, 255, 0.8);
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        /* Features section */
+        .features {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .feature-card {
+            background: rgba(16, 16, 32, 0.7);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(128, 0, 255, 0.1);
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--neon-blue);
+        }
+        
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+        
+        /* Reviews section */
+        .reviews {
+            padding: 4rem 0;
+            background: linear-gradient(180deg, rgba(10,10,18,1) 0%, rgba(16,16,32,1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .reviews::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 243, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 80% 30%, rgba(255, 0, 230, 0.1) 0%, transparent 20%);
+        }
+        
+        .reviews-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .reviews-track {
+            display: flex;
+            animation: scrollReviews 30s linear infinite;
+        }
+        
+        @keyframes scrollReviews {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        .review-card {
+            flex: 0 0 350px;
+            background: rgba(16, 16, 32, 0.8);
+            margin: 0 1.5rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 15px rgba(128, 0, 255, 0.1);
+        }
+        
+        .review-card .stars {
+            color: var(--neon-pink);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .review-card .review-text {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .review-card .reviewer {
+            font-weight: bold;
+            color: var(--neon-blue);
+        }
+        
+        /* Pricing section */
+        .pricing {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .price-card {
+            max-width: 400px;
+            margin: 0 auto;
+            background: rgba(16, 16, 32, 0.7);
+            border-radius: 10px;
+            padding: 3rem 2rem;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .price-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px rgba(128, 0, 255, 0.3);
+        }
+        
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(135deg, rgba(0, 243, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(225deg, rgba(255, 0, 230, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .price-amount {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .price-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .price-features {
+            list-style: none;
+            margin-bottom: 2.5rem;
+            text-align: left;
+            padding: 0 1rem;
+        }
+        
+        .price-features li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .price-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--neon-blue);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(90deg, rgba(10,10,18,0.95) 0%, rgba(16,16,32,0.95) 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 243, 255, 0.1);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--neon-blue);
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .nav-links {
+                gap: 1.2rem;
+            }
+            
+            .feature-card {
+                padding: 1.5rem;
+            }
+            
+            .price-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .cta-button {
+                padding: 0.8rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">FRL GUI V2</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#pricing">Pricing</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>FRL GUI V2</h1>
+            <p>The next generation interface with stunning visuals and powerful features. Experience the future of graphical user interfaces with our revolutionary product.</p>
+            <a href="#pricing" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">Key Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Neon-Powered Interface</h3>
+                <p>Our stunning neon aesthetics provide not just visual appeal but enhance usability and create an immersive experience.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Responsive Design</h3>
+                <p>Works flawlessly across all devices and screen sizes, from desktop to mobile, with no compromise on functionality.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Advanced Animations</h3>
+                <p>Smooth transitions and thoughtful animations that guide users and provide meaningful feedback for interactions.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Customizable Experience</h3>
+                <p>Adapt the interface to your personal preferences with extensive theming and layout options.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Performance Optimized</h3>
+                <p>Blazing fast performance with minimal resource usage, ensuring a smooth experience even on less powerful devices.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Regular Updates</h3>
+                <p>Continuous improvement with regular feature updates and enhancements based on user feedback.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews" id="reviews">
+        <h2 class="section-title">What Users Say</h2>
+        <div class="reviews-container">
+            <div class="reviews-track">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"FRL GUI V2 completely transformed my workflow. The interface is intuitive and the animations make the experience so much more enjoyable."</p>
+                    <p class="reviewer">- Alex Johnson</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"I've tried many interfaces before, but this one stands out. The neon aesthetics are not just eye-candy but actually improve usability."</p>
+                    <p class="reviewer">- Sarah Matthews</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Worth every penny! The performance is incredible and the customization options let me tailor it to my exact needs."</p>
+                    <p class="reviewer">- Mark Richardson</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"The best $10 I've ever spent on software. Can't imagine going back to standard interfaces after using FRL GUI V2."</p>
+                    <p class="reviewer">- Laura Chen</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★☆</div>
+                    <p class="review-text">"Extremely impressive interface with beautiful animations. Only missing one star because I'd like to see more color options."</p>
+                    <p class="reviewer">- David Park</p>
+                </div>
+                
+                <!-- Duplicate cards for continuous scrolling effect -->
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"FRL GUI V2 completely transformed my workflow. The interface is intuitive and the animations make the experience so much more enjoyable."</p>
+                    <p class="reviewer">- Alex Johnson</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"I've tried many interfaces before, but this one stands out. The neon aesthetics are not just eye-candy but actually improve usability."</p>
+                    <p class="reviewer">- Sarah Matthews</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Worth every penny! The performance is incredible and the customization options let me tailor it to my exact needs."</p>
+                    <p class="reviewer">- Mark Richardson</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"The best $10 I've ever spent on software. Can't imagine going back to standard interfaces after using FRL GUI V2."</p>
+                    <p class="reviewer">- Laura Chen</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★☆</div>
+                    <p class="review-text">"Extremely impressive interface with beautiful animations. Only missing one star because I'd like to see more color options."</p>
+                    <p class="reviewer">- David Park</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <h2 class="section-title">Simple Pricing</h2>
+        <div class="price-card">
+            <div class="price-amount">$10</div>
+            <p class="price-description">One-time payment for lifetime access</p>
+            <ul class="price-features">
+                <li>Full Access to FRL GUI V2</li>
+                <li>Lifetime Updates</li>
+                <li>All Premium Features</li>
+                <li>Free Technical Support</li>
+                <li>Use on Multiple Devices</li>
+            </ul>
+            <a href="https://discord.gg/nsm85GHDHb" class="cta-button">Buy Now</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+                <a href="https://discord.gg/nsm85GHDHb">Discord</a>
+            </div>
+            <p class="copyright">© 2025 FRL GUI V2. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Clone the reviews for infinite scrolling
+        document.addEventListener('DOMContentLoaded', function() {
+            const reviewsTrack = document.querySelector('.reviews-track');
+            const reviewCards = document.querySelectorAll('.review-card');
+            
+            // Clone original review cards to create illusion of infinite scrolling
+            reviewCards.forEach(card => {
+                const clone = card.cloneNode(true);
+                reviewsTrack.appendChild(clone);
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
