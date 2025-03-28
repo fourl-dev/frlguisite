@@ -7,10 +7,11 @@
     <style>
         /* Base styles */
         :root {
-            --neon-blue: #00f3ff;
+            --neon-purple: #9d00ff;
             --neon-pink: #ff00e6;
-            --neon-purple: #8000ff;
+            --deep-purple: #6200ea;
             --dark-bg: #0a0a12;
+            --light-purple: #b388ff;
         }
         
         * {
@@ -28,13 +29,13 @@
         
         /* Header and navigation */
         header {
-            background: linear-gradient(90deg, rgba(10,10,18,0.9) 0%, rgba(16,16,32,0.9) 100%);
+            background: rgba(16, 16, 32, 0.9);
             padding: 1.5rem;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 100;
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 20px rgba(157, 0, 255, 0.3);
         }
         
         nav {
@@ -48,11 +49,11 @@
         .logo {
             font-size: 2rem;
             font-weight: bold;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            background: linear-gradient(90deg, #b388ff, #9d00ff);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+            text-shadow: 0 0 10px rgba(157, 0, 255, 0.7);
         }
         
         .nav-links {
@@ -65,26 +66,32 @@
             text-decoration: none;
             font-weight: 500;
             position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            overflow: hidden;
+            z-index: 1;
             transition: color 0.3s;
         }
         
-        .nav-links a:hover {
-            color: var(--neon-blue);
-        }
-        
-        .nav-links a::after {
+        .nav-links a::before {
             content: '';
             position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-            transition: width 0.3s;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--neon-purple);
+            transition: all 0.3s ease;
+            z-index: -1;
+            opacity: 0.7;
         }
         
-        .nav-links a:hover::after {
-            width: 100%;
+        .nav-links a:hover {
+            color: white;
+        }
+        
+        .nav-links a:hover::before {
+            left: 0;
         }
         
         /* Hero section */
@@ -93,7 +100,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at center, rgba(16,16,32,1) 0%, rgba(10,10,18,1) 100%);
+            background: radial-gradient(circle at center, rgba(98, 0, 234, 0.3) 0%, rgba(10, 10, 18, 1) 100%);
             position: relative;
             overflow: hidden;
         }
@@ -104,8 +111,8 @@
             width: 100%;
             height: 100%;
             background: 
-                linear-gradient(90deg, transparent 0%, rgba(0, 243, 255, 0.05) 50%, transparent 100%),
-                linear-gradient(180deg, transparent 0%, rgba(255, 0, 230, 0.05) 50%, transparent 100%);
+                linear-gradient(90deg, transparent 0%, rgba(157, 0, 255, 0.1) 50%, transparent 100%),
+                linear-gradient(180deg, transparent 0%, rgba(255, 0, 230, 0.1) 50%, transparent 100%);
             animation: backgroundPulse 10s infinite alternate;
         }
         
@@ -120,6 +127,43 @@
             }
         }
         
+        /* Floating blocks animation */
+        .floating-blocks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .block {
+            position: absolute;
+            background: rgba(157, 0, 255, 0.2);
+            border: 1px solid rgba(179, 136, 255, 0.3);
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.4);
+            animation: floatAnimation 15s infinite linear;
+            opacity: 0;
+        }
+        
+        @keyframes floatAnimation {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
         .hero-content {
             text-align: center;
             max-width: 800px;
@@ -131,24 +175,26 @@
         h1 {
             font-size: 4rem;
             margin-bottom: 1.5rem;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            background: linear-gradient(90deg, var(--light-purple), var(--neon-purple));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+            text-shadow: 0 0 15px rgba(157, 0, 255, 0.7);
+            letter-spacing: 2px;
         }
         
         .hero-content p {
             font-size: 1.25rem;
             margin-bottom: 2.5rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             line-height: 1.6;
+            text-shadow: 0 0 8px rgba(157, 0, 255, 0.5);
         }
         
         .cta-button {
             display: inline-block;
             padding: 1rem 2.5rem;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            background: linear-gradient(90deg, var(--deep-purple), var(--neon-purple));
             color: white;
             font-weight: bold;
             text-decoration: none;
@@ -157,12 +203,13 @@
             position: relative;
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 0 15px rgba(128, 0, 255, 0.5);
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.7);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
         }
         
         .cta-button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 0 25px rgba(128, 0, 255, 0.8);
+            box-shadow: 0 0 25px rgba(157, 0, 255, 1);
         }
         
         .cta-button::before {
@@ -172,7 +219,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.7s;
         }
         
@@ -191,10 +238,12 @@
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 4rem;
-            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(157, 0, 255, 0.5);
+            letter-spacing: 1px;
         }
         
         .features-grid {
@@ -210,7 +259,7 @@
             transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(128, 0, 255, 0.1);
+            border: 1px solid rgba(157, 0, 255, 0.2);
         }
         
         .feature-card::before {
@@ -220,29 +269,30 @@
             left: 0;
             width: 100%;
             height: 3px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));
         }
         
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 20px rgba(157, 0, 255, 0.3);
         }
         
         .feature-card h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
-            color: var(--neon-blue);
+            color: var(--light-purple);
+            text-shadow: 0 0 5px rgba(157, 0, 255, 0.5);
         }
         
         .feature-card p {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.8);
             line-height: 1.6;
         }
         
         /* Reviews section */
         .reviews {
             padding: 4rem 0;
-            background: linear-gradient(180deg, rgba(10,10,18,1) 0%, rgba(16,16,32,1) 100%);
+            background: linear-gradient(180deg, rgba(10,10,18,1) 0%, rgba(40,10,60,0.8) 100%);
             position: relative;
             overflow: hidden;
         }
@@ -253,8 +303,8 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(0, 243, 255, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 80% 30%, rgba(255, 0, 230, 0.1) 0%, transparent 20%);
+                radial-gradient(circle at 20% 50%, rgba(157, 0, 255, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 80% 30%, rgba(255, 0, 230, 0.2) 0%, transparent 20%);
         }
         
         .reviews-container {
@@ -279,29 +329,32 @@
         
         .review-card {
             flex: 0 0 350px;
-            background: rgba(16, 16, 32, 0.8);
+            background: rgba(30, 20, 40, 0.8);
             margin: 0 1.5rem;
             padding: 1.5rem;
             border-radius: 10px;
-            border: 1px solid rgba(0, 243, 255, 0.2);
-            box-shadow: 0 0 15px rgba(128, 0, 255, 0.1);
+            border: 1px solid rgba(157, 0, 255, 0.3);
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.2);
         }
         
         .review-card .stars {
             color: var(--neon-pink);
             margin-bottom: 1rem;
             font-size: 1.2rem;
+            text-shadow: 0 0 5px rgba(255, 0, 230, 0.7);
         }
         
         .review-card .review-text {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             line-height: 1.6;
             margin-bottom: 1rem;
+            text-shadow: 0 0 3px rgba(157, 0, 255, 0.3);
         }
         
         .review-card .reviewer {
             font-weight: bold;
-            color: var(--neon-blue);
+            color: var(--light-purple);
+            text-shadow: 0 0 5px rgba(157, 0, 255, 0.5);
         }
         
         /* Pricing section */
@@ -315,10 +368,10 @@
         .price-card {
             max-width: 400px;
             margin: 0 auto;
-            background: rgba(16, 16, 32, 0.7);
+            background: rgba(30, 20, 40, 0.7);
             border-radius: 10px;
             padding: 3rem 2rem;
-            border: 1px solid rgba(0, 243, 255, 0.2);
+            border: 1px solid rgba(157, 0, 255, 0.3);
             position: relative;
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
@@ -326,7 +379,7 @@
         
         .price-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 0 25px rgba(128, 0, 255, 0.3);
+            box-shadow: 0 0 25px rgba(157, 0, 255, 0.5);
         }
         
         .price-card::before {
@@ -337,7 +390,7 @@
             width: 100%;
             height: 100%;
             background: 
-                linear-gradient(135deg, rgba(0, 243, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, rgba(157, 0, 255, 0.1) 0%, transparent 50%),
                 linear-gradient(225deg, rgba(255, 0, 230, 0.1) 0%, transparent 50%);
             z-index: -1;
         }
@@ -346,16 +399,18 @@
             font-size: 4rem;
             font-weight: bold;
             margin-bottom: 1.5rem;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            background: linear-gradient(90deg, var(--light-purple), var(--neon-purple));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(157, 0, 255, 0.7);
         }
         
         .price-description {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             margin-bottom: 2rem;
             line-height: 1.6;
+            text-shadow: 0 0 5px rgba(157, 0, 255, 0.3);
         }
         
         .price-features {
@@ -369,22 +424,24 @@
             margin-bottom: 1rem;
             position: relative;
             padding-left: 1.5rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 3px rgba(157, 0, 255, 0.3);
         }
         
         .price-features li::before {
             content: '✓';
             position: absolute;
             left: 0;
-            color: var(--neon-blue);
+            color: var(--light-purple);
+            text-shadow: 0 0 5px rgba(157, 0, 255, 0.5);
         }
         
         /* Footer */
         footer {
-            background: linear-gradient(90deg, rgba(10,10,18,0.95) 0%, rgba(16,16,32,0.95) 100%);
+            background: rgba(20, 10, 30, 0.95);
             padding: 3rem 2rem;
             text-align: center;
-            border-top: 1px solid rgba(0, 243, 255, 0.1);
+            border-top: 1px solid rgba(157, 0, 255, 0.2);
         }
         
         .footer-content {
@@ -403,10 +460,11 @@
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
             transition: color 0.3s;
+            text-shadow: 0 0 3px rgba(157, 0, 255, 0.3);
         }
         
         .footer-links a:hover {
-            color: var(--neon-blue);
+            color: var(--light-purple);
         }
         
         .copyright {
@@ -466,9 +524,12 @@
     </header>
 
     <section class="hero">
+        <div class="floating-blocks">
+            <!-- Blocks will be added via JavaScript -->
+        </div>
         <div class="hero-content">
             <h1>FRL GUI V2</h1>
-            <p>The next generation interface with stunning visuals and powerful features. Experience the future of graphical user interfaces with our revolutionary product.</p>
+            <p>The ultimate Gorilla Tag GUI with the most powerful mods and features. Dominate the game with our revolutionary interface.</p>
             <a href="#pricing" class="cta-button">Get Started</a>
         </div>
     </section>
@@ -477,28 +538,28 @@
         <h2 class="section-title">Key Features</h2>
         <div class="features-grid">
             <div class="feature-card">
-                <h3>Neon-Powered Interface</h3>
-                <p>Our stunning neon aesthetics provide not just visual appeal but enhance usability and create an immersive experience.</p>
+                <h3>Premium Mods</h3>
+                <p>Access exclusive mods that give you the ultimate advantage in Gorilla Tag.</p>
             </div>
             <div class="feature-card">
-                <h3>Responsive Design</h3>
-                <p>Works flawlessly across all devices and screen sizes, from desktop to mobile, with no compromise on functionality.</p>
+                <h3>Anti-Ban Protection</h3>
+                <p>Our advanced protection system keeps your account safe while using our powerful features.</p>
             </div>
             <div class="feature-card">
-                <h3>Advanced Animations</h3>
-                <p>Smooth transitions and thoughtful animations that guide users and provide meaningful feedback for interactions.</p>
+                <h3>Insane Laggers</h3>
+                <p>Create the perfect amount of lag to gain advantage without getting detected.</p>
             </div>
             <div class="feature-card">
-                <h3>Customizable Experience</h3>
-                <p>Adapt the interface to your personal preferences with extensive theming and layout options.</p>
+                <h3>Custom Skins</h3>
+                <p>Stand out with exclusive skins that no one else has access to.</p>
             </div>
             <div class="feature-card">
-                <h3>Performance Optimized</h3>
-                <p>Blazing fast performance with minimal resource usage, ensuring a smooth experience even on less powerful devices.</p>
+                <h3>Easy Installation</h3>
+                <p>Simple one-click setup gets you up and running in seconds.</p>
             </div>
             <div class="feature-card">
                 <h3>Regular Updates</h3>
-                <p>Continuous improvement with regular feature updates and enhancements based on user feedback.</p>
+                <p>Stay ahead with frequent updates that add new features and keep everything working.</p>
             </div>
         </div>
     </section>
@@ -509,55 +570,55 @@
             <div class="reviews-track">
                 <div class="review-card">
                     <div class="stars">★★★★★</div>
-                    <p class="review-text">"FRL GUI V2 completely transformed my workflow. The interface is intuitive and the animations make the experience so much more enjoyable."</p>
-                    <p class="reviewer">- Alex Johnson</p>
+                    <p class="review-text">"This Gorilla Tag GUI changed my experience and had the best mods with insane laggers! Never been caught once!"</p>
+                    <p class="reviewer">- 1kan#4269</p>
                 </div>
                 <div class="review-card">
                     <div class="stars">★★★★★</div>
-                    <p class="review-text">"I've tried many interfaces before, but this one stands out. The neon aesthetics are not just eye-candy but actually improve usability."</p>
-                    <p class="reviewer">- Sarah Matthews</p>
+                    <p class="review-text">"FRL GUI V2 is unmatched! The lag switch is perfect and the custom skins make everyone jealous. Worth every penny!"</p>
+                    <p class="reviewer">- Tecky#7721</p>
                 </div>
                 <div class="review-card">
                     <div class="stars">★★★★★</div>
-                    <p class="review-text">"Worth every penny! The performance is incredible and the customization options let me tailor it to my exact needs."</p>
-                    <p class="reviewer">- Mark Richardson</p>
+                    <p class="review-text">"Best mod menu I've used. The laggers are literally insane and the anti-detection works perfectly. No bans in 3 months!"</p>
+                    <p class="reviewer">- VoidMaster#2209</p>
                 </div>
                 <div class="review-card">
                     <div class="stars">★★★★★</div>
-                    <p class="review-text">"The best $10 I've ever spent on software. Can't imagine going back to standard interfaces after using FRL GUI V2."</p>
-                    <p class="reviewer">- Laura Chen</p>
+                    <p class="review-text">"Been using for weeks and it's game-changing. The mods are crazy powerful and the GUI is super easy to use."</p>
+                    <p class="reviewer">- ZeroDay#8812</p>
                 </div>
                 <div class="review-card">
                     <div class="stars">★★★★☆</div>
-                    <p class="review-text">"Extremely impressive interface with beautiful animations. Only missing one star because I'd like to see more color options."</p>
-                    <p class="reviewer">- David Park</p>
+                    <p class="review-text">"The laggers are insane! Only missing a star because I wish there were more custom skins. Otherwise perfect!"</p>
+                    <p class="reviewer">- NightOwl#5510</p>
                 </div>
                 
                 <!-- Duplicate cards for continuous scrolling effect -->
                 <div class="review-card">
                     <div class="stars">★★★★★</div>
-                    <p class="review-text">"FRL GUI V2 completely transformed my workflow. The interface is intuitive and the animations make the experience so much more enjoyable."</p>
-                    <p class="reviewer">- Alex Johnson</p>
+                    <p class="review-text">"This Gorilla Tag GUI changed my experience and had the best mods with insane laggers! Never been caught once!"</p>
+                    <p class="reviewer">- 1kan#4269</p>
                 </div>
                 <div class="review-card">
                     <div class="stars">★★★★★</div>
-                    <p class="review-text">"I've tried many interfaces before, but this one stands out. The neon aesthetics are not just eye-candy but actually improve usability."</p>
-                    <p class="reviewer">- Sarah Matthews</p>
+                    <p class="review-text">"FRL GUI V2 is unmatched! The lag switch is perfect and the custom skins make everyone jealous. Worth every penny!"</p>
+                    <p class="reviewer">- Tecky#7721</p>
                 </div>
                 <div class="review-card">
                     <div class="stars">★★★★★</div>
-                    <p class="review-text">"Worth every penny! The performance is incredible and the customization options let me tailor it to my exact needs."</p>
-                    <p class="reviewer">- Mark Richardson</p>
+                    <p class="review-text">"Best mod menu I've used. The laggers are literally insane and the anti-detection works perfectly. No bans in 3 months!"</p>
+                    <p class="reviewer">- VoidMaster#2209</p>
                 </div>
                 <div class="review-card">
                     <div class="stars">★★★★★</div>
-                    <p class="review-text">"The best $10 I've ever spent on software. Can't imagine going back to standard interfaces after using FRL GUI V2."</p>
-                    <p class="reviewer">- Laura Chen</p>
+                    <p class="review-text">"Been using for weeks and it's game-changing. The mods are crazy powerful and the GUI is super easy to use."</p>
+                    <p class="reviewer">- ZeroDay#8812</p>
                 </div>
                 <div class="review-card">
                     <div class="stars">★★★★☆</div>
-                    <p class="review-text">"Extremely impressive interface with beautiful animations. Only missing one star because I'd like to see more color options."</p>
-                    <p class="reviewer">- David Park</p>
+                    <p class="review-text">"The laggers are insane! Only missing a star because I wish there were more custom skins. Otherwise perfect!"</p>
+                    <p class="reviewer">- NightOwl#5510</p>
                 </div>
             </div>
         </div>
@@ -570,10 +631,10 @@
             <p class="price-description">One-time payment for lifetime access</p>
             <ul class="price-features">
                 <li>Full Access to FRL GUI V2</li>
-                <li>Lifetime Updates</li>
-                <li>All Premium Features</li>
-                <li>Free Technical Support</li>
-                <li>Use on Multiple Devices</li>
+                <li>All Premium Mods</li>
+                <li>Insane Laggers</li>
+                <li>Custom Skins</li>
+                <li>Anti-Ban Protection</li>
             </ul>
             <a href="https://discord.gg/nsm85GHDHb" class="cta-button">Buy Now</a>
         </div>
@@ -592,8 +653,41 @@
     </footer>
 
     <script>
-        // Clone the reviews for infinite scrolling
+        // Create floating blocks
         document.addEventListener('DOMContentLoaded', function() {
+            const floatingBlocks = document.querySelector('.floating-blocks');
+            const colors = ['rgba(157, 0, 255, 0.2)', 'rgba(179, 136, 255, 0.2)', 'rgba(131, 56, 236, 0.2)', 'rgba(98, 0, 234, 0.2)'];
+            
+            // Create 15 random blocks
+            for (let i = 0; i < 15; i++) {
+                const block = document.createElement('div');
+                block.classList.add('block');
+                
+                // Random size between 30px and 100px
+                const size = Math.floor(Math.random() * 70) + 30;
+                block.style.width = `${size}px`;
+                block.style.height = `${size}px`;
+                
+                // Random position
+                const left = Math.floor(Math.random() * 100);
+                const top = Math.floor(Math.random() * 100) + 100;
+                block.style.left = `${left}%`;
+                block.style.top = `${top}%`;
+                
+                // Random color
+                const colorIndex = Math.floor(Math.random() * colors.length);
+                block.style.backgroundColor = colors[colorIndex];
+                
+                // Random animation duration and delay
+                const duration = Math.floor(Math.random() * 10) + 15;
+                const delay = Math.floor(Math.random() * 10);
+                block.style.animationDuration = `${duration}s`;
+                block.style.animationDelay = `${delay}s`;
+                
+                floatingBlocks.appendChild(block);
+            }
+            
+            // Clone the reviews for infinite scrolling
             const reviewsTrack = document.querySelector('.reviews-track');
             const reviewCards = document.querySelectorAll('.review-card');
             
