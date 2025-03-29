@@ -79,20 +79,22 @@
             justify-content: space-between;
             align-items: center;
             max-width: 1200px;
+            width: 100%;
             margin: 0 auto;
+            padding: 0 1rem;
         }
         
         .logo {
             font-size: 2rem;
             font-weight: bold;
-            margin-left: 5px;
+            margin-left: 0;
             background: linear-gradient(90deg, #b388ff, #9d00ff, #ff00e6, #b388ff);
             background-size: 300% 300%;
             animation: gradientAnimation 3s ease infinite;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(157, 0, 255, 0.7);
+            text-shadow: 0 0 15px rgba(157, 0, 255, 1);
         }
         
         .nav-links {
@@ -109,7 +111,8 @@
             border-radius: 4px;
             overflow: hidden;
             z-index: 1;
-            transition: color 0.15s;
+            transition: color 0.1s;
+            margin-left: 1rem;
         }
         
         .nav-links a::before {
@@ -120,7 +123,7 @@
             width: 100%;
             height: 100%;
             background: #8a20ff;
-            transition: transform 0.15s ease;
+            transition: transform 0.1s ease;
             z-index: -1;
             opacity: 0.8;
             transform: translateX(0);
@@ -251,9 +254,9 @@
         .hero-content p {
             font-size: 1.25rem;
             margin-bottom: 2.5rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 1);
             line-height: 1.6;
-            text-shadow: 0 0 8px rgba(157, 0, 255, 0.5);
+            text-shadow: 0 0 15px rgba(157, 0, 255, 0.7), 0 0 30px rgba(157, 0, 255, 0.5);
         }
         
         .cta-button {
@@ -360,12 +363,13 @@
             font-size: 1.5rem;
             margin-bottom: 1rem;
             color: var(--light-purple);
-            text-shadow: 0 0 5px rgba(157, 0, 255, 0.5);
+            text-shadow: 0 0 15px rgba(157, 0, 255, 0.8), 0 0 30px rgba(157, 0, 255, 0.6);
         }
         
         .feature-card p {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             line-height: 1.6;
+            text-shadow: 0 0 8px rgba(157, 0, 255, 0.4);
         }
         
         /* Reviews section */
@@ -424,16 +428,16 @@
         }
         
         .review-card .review-text {
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 1);
             line-height: 1.6;
             margin-bottom: 1rem;
-            text-shadow: 0 0 3px rgba(157, 0, 255, 0.3);
+            text-shadow: 0 0 10px rgba(157, 0, 255, 0.6);
         }
         
         .review-card .reviewer {
             font-weight: bold;
             color: var(--light-purple);
-            text-shadow: 0 0 5px rgba(157, 0, 255, 0.5);
+            text-shadow: 0 0 12px rgba(157, 0, 255, 0.8);
         }
         
         /* Pricing section */
@@ -458,7 +462,7 @@
         
         .price-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 0 25px rgba(157, 0, 255, 0.5);
+            box-shadow: 0 0 35px rgba(157, 0, 255, 0.7);
         }
         
         .price-card::before {
@@ -468,21 +472,59 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                linear-gradient(135deg, rgba(157, 0, 255, 0.2) 0%, transparent 50%),
-                linear-gradient(225deg, rgba(255, 0, 230, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 70% 20%, rgba(179, 136, 255, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 30% 80%, rgba(128, 0, 255, 0.15) 0%, transparent 50%);
+            background-size: 400% 400%;
+            background-image: 
+                linear-gradient(45deg, 
+                    rgba(123, 31, 162, 0.5), 
+                    rgba(157, 0, 255, 0.4), 
+                    rgba(103, 58, 183, 0.5), 
+                    rgba(255, 0, 230, 0.4),
+                    rgba(123, 31, 162, 0.5)
+                );
             z-index: -1;
-            animation: pricingGradient 10s infinite alternate;
+            animation: pricingGlowAnimation 8s ease infinite;
         }
         
-        @keyframes pricingGradient {
+        .price-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                radial-gradient(
+                    circle, 
+                    transparent 30%, 
+                    rgba(157, 0, 255, 0.1) 40%, 
+                    rgba(255, 0, 230, 0.1) 50%, 
+                    rgba(103, 58, 183, 0.1) 60%, 
+                    transparent 70%
+                );
+            z-index: -2;
+            animation: pricingPulseAnimation 10s infinite alternate;
+        }
+        
+        @keyframes pricingGlowAnimation {
             0% {
-                background-position: 0% 0%;
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
             }
             100% {
-                background-position: 100% 100%;
+                background-position: 0% 50%;
+            }
+        }
+        
+        @keyframes pricingPulseAnimation {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(-5%, 5%) rotate(15deg);
+                opacity: 0.8;
             }
         }
         
@@ -494,14 +536,24 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 15px rgba(157, 0, 255, 0.7);
+            text-shadow: 0 0 25px rgba(157, 0, 255, 1), 0 0 45px rgba(157, 0, 255, 0.7);
+            animation: priceGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes priceGlow {
+            0% {
+                text-shadow: 0 0 25px rgba(157, 0, 255, 1), 0 0 45px rgba(157, 0, 255, 0.7);
+            }
+            100% {
+                text-shadow: 0 0 35px rgba(157, 0, 255, 1), 0 0 60px rgba(255, 0, 230, 0.9), 0 0 80px rgba(157, 0, 255, 0.6);
+            }
         }
         
         .price-description {
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 1);
             margin-bottom: 2rem;
             line-height: 1.6;
-            text-shadow: 0 0 5px rgba(157, 0, 255, 0.3);
+            text-shadow: 0 0 12px rgba(157, 0, 255, 0.6);
         }
         
         .price-features {
@@ -515,15 +567,15 @@
             margin-bottom: 1rem;
             position: relative;
             padding-left: 1.5rem;
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 0 0 3px rgba(157, 0, 255, 0.3);
+            color: rgba(255, 255, 255, 1);
+            text-shadow: 0 0 10px rgba(157, 0, 255, 0.5);
         }
         
         .price-features li i {
             position: absolute;
             left: 0;
             color: var(--light-purple);
-            text-shadow: 0 0 5px rgba(157, 0, 255, 0.5);
+            text-shadow: 0 0 12px rgba(157, 0, 255, 0.8);
         }
         
         /* Footer */
@@ -659,9 +711,9 @@
         <nav>
             <div class="logo">FRL GUI V2</div>
             <div class="nav-links">
-                <a href="#features"><i class="nav-icon fas fa-star"></i> Features</a>
-                <a href="#reviews"><i class="nav-icon fas fa-comment"></i> Reviews</a>
-                <a href="#pricing"><i class="nav-icon fas fa-tag"></i> Pricing</a>
+                <a href="#features">Features</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#pricing">Pricing</a>
             </div>
         </nav>
     </header>
