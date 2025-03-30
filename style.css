@@ -21,22 +21,23 @@ html { scroll-behavior: smooth; }
 body {
     background-color: var(--dark-bg); color: var(--text-primary); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow-x: hidden; line-height: 1.6;
-    background-image: linear-gradient(45deg, rgba(157, 0, 255, 0.03) 25%, transparent 25%, transparent 50%, rgba(157, 0, 255, 0.03) 50%, rgba(157, 0, 255, 0.03) 75%, transparent 75%, transparent);
-    background-size: 30px 30px; animation: backgroundPatternMove 30s linear infinite;
+    background-image: linear-gradient(45deg, rgba(157, 0, 255, 0.02) 25%, transparent 25%, transparent 50%, rgba(157, 0, 255, 0.02) 50%, rgba(157, 0, 255, 0.02) 75%, transparent 75%, transparent); /* Subtler pattern */
+    background-size: 40px 40px; /* Larger pattern */
+    animation: backgroundPatternMove 40s linear infinite; /* Slower pattern */
 }
-@keyframes backgroundPatternMove { from { background-position: 0 0; } to { background-position: 300px 300px; } }
+@keyframes backgroundPatternMove { from { background-position: 0 0; } to { background-position: 400px 400px; } }
 
 /* --- Icons --- */
-.feature-icon, .nav-icon, .check-icon, .buy-button i, .footer-links i { text-shadow: 0 0 8px currentColor, 0 0 12px currentColor; animation: iconPulse 2s infinite alternate; display: inline-block; }
-@keyframes iconPulse { from { transform: scale(1); opacity: 0.8; } to { transform: scale(1.1); opacity: 1; } }
+.feature-icon, .nav-icon, .check-icon, .buy-button i, .footer-links i { text-shadow: 0 0 8px currentColor; animation: iconPulse 2.5s infinite alternate; display: inline-block; } /* Slower pulse */
+@keyframes iconPulse { from { transform: scale(1); opacity: 0.8; } to { transform: scale(1.08); opacity: 1; } }
 .feature-icon { margin-right: 12px; color: var(--light-purple); width: 1.5em; text-align: center; }
 .nav-icon { margin-right: 8px; color: white; }
 .check-icon { margin-right: 12px; color: var(--light-purple); }
 
 /* --- Header & Navigation --- */
 header {
-    background: rgba(10, 5, 20, 0.8); backdrop-filter: blur(10px) saturate(1.2); padding: 1.2rem 1rem; position: fixed; width: 100%; top: 0; left: 0; z-index: 1000;
-    box-shadow: 0 0 30px rgba(157, 0, 255, 0.5), 0 4px 10px rgba(0,0,0,0.4); border-bottom: 1px solid rgba(157, 0, 255, 0.3);
+    background: rgba(10, 5, 20, 0.85); backdrop-filter: blur(10px); /* Keep backdrop */ padding: 1.2rem 1rem; position: fixed; width: 100%; top: 0; left: 0; z-index: 1000;
+    box-shadow: 0 0 25px rgba(157, 0, 255, 0.4), 0 4px 8px rgba(0,0,0,0.3); border-bottom: 1px solid rgba(157, 0, 255, 0.25);
     transform: translateY(-100%); animation: slideDown var(--med-duration) ease-out 0.5s forwards;
 }
 @keyframes slideDown { to { transform: translateY(0); } }
@@ -52,62 +53,37 @@ nav { display: flex; justify-content: space-between; align-items: center; max-wi
 .nav-links a::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(157, 0, 255, 0.4), rgba(255, 0, 230, 0.4)); transition: left var(--fast-duration) ease-out; z-index: -1; }
 .nav-links a:hover::before, .nav-links a:focus::before { left: 0; }
 .nav-links a:hover, .nav-links a:focus { color: white; transform: scale(1.1) translateY(-2px); text-shadow: 0 0 10px white; border-color: var(--light-purple); box-shadow: 0 0 15px var(--glow-color); outline: none; }
-.nav-links a:nth-child(1) { animation: fadeInRight var(--med-duration) ease-out 0.7s forwards; opacity: 0; }
-.nav-links a:nth-child(2) { animation: fadeInRight var(--med-duration) ease-out 0.8s forwards; opacity: 0; }
-.nav-links a:nth-child(3) { animation: fadeInRight var(--med-duration) ease-out 0.9s forwards; opacity: 0; }
+.nav-links a { opacity: 0; animation: fadeInRight var(--med-duration) ease-out forwards; } /* Apply to all, stagger delay */
+.nav-links a:nth-child(1) { animation-delay: 0.7s; }
+.nav-links a:nth-child(2) { animation-delay: 0.8s; }
+.nav-links a:nth-child(3) { animation-delay: 0.9s; }
 @keyframes fadeInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
 /* --- Hero Section --- */
-.hero {
-    min-height: 100vh; display: flex; align-items: center; justify-content: center;
-    background: radial-gradient(ellipse at center, rgba(98, 0, 234, 0.3) 0%, var(--dark-bg) 65%);
-    position: relative; overflow: hidden; padding: 8rem 1rem 4rem 1rem;
-    background-image: radial-gradient(ellipse at center, rgba(98, 0, 234, 0.3) 0%, var(--dark-bg) 65%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%239d00ff' fill-opacity='0.1'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l-2.83-2.83 1.41-1.41L20 17.17l2.83-2.83 1.41 1.41L20 18.6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    animation: particlesFlow 20s linear infinite;
-}
-@keyframes particlesFlow { from { background-position: 0% 0%, 0% 0%; } to { background-position: 0% 0%, 100% 100%; } }
-.hero::before {
-    content: ''; position: absolute; width: 150%; height: 150%; top: -25%; left: -25%;
-    background: radial-gradient(circle at 20% 30%, rgba(157, 0, 255, 0.3) 0%, transparent 30%), radial-gradient(circle at 80% 70%, rgba(255, 0, 230, 0.3) 0%, transparent 25%), radial-gradient(ellipse at 50% 50%, rgba(100, 200, 255, 0.1) 0%, transparent 40%);
-    animation: backgroundPulse 8s infinite alternate ease-in-out, backgroundRotate 50s linear infinite;
-    opacity: 0.8; mix-blend-mode: screen; will-change: opacity, transform;
-}
-@keyframes backgroundPulse { from { opacity: 0.5; transform: scale(1); } to { opacity: 1; transform: scale(1.15); } }
+.hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at center, rgba(98, 0, 234, 0.25) 0%, var(--dark-bg) 70%); position: relative; overflow: hidden; padding: 8rem 1rem 4rem 1rem; } /* Slightly stronger center gradient */
+.hero::before { /* Keep nebula effect */ content: ''; position: absolute; width: 150%; height: 150%; top: -25%; left: -25%; background: radial-gradient(circle at 20% 30%, rgba(157, 0, 255, 0.25) 0%, transparent 30%), radial-gradient(circle at 80% 70%, rgba(255, 0, 230, 0.25) 0%, transparent 25%), radial-gradient(ellipse at 50% 50%, rgba(100, 200, 255, 0.08) 0%, transparent 40%); animation: backgroundPulse 9s infinite alternate ease-in-out, backgroundRotate 60s linear infinite; opacity: 0.8; mix-blend-mode: screen; will-change: opacity, transform; } /* Slightly slower */
+@keyframes backgroundPulse { from { opacity: 0.6; transform: scale(1); } to { opacity: 1; transform: scale(1.1); } }
 @keyframes backgroundRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
 .floating-blocks { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; pointer-events: none; }
-.block {
-    position: absolute; background: linear-gradient(45deg, rgba(157, 0, 255, 0.3), rgba(255, 0, 230, 0.3)); border: 1px solid rgba(179, 136, 255, 0.4);
-    box-shadow: 0 0 15px rgba(157, 0, 255, 0.4), inset 0 0 5px rgba(255,255,255,0.2); animation: floatAnimation 12s infinite linear, blockPulse 3s infinite alternate;
-    opacity: 0; border-radius: 6px; will-change: transform, opacity;
-}
-@keyframes floatAnimation { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 10% { opacity: 0.8; } 90% { opacity: 0.8; } 100% { transform: translateY(-110vh) rotate(720deg); opacity: 0; } }
-@keyframes blockPulse { from { transform: scale(0.9); box-shadow: 0 0 10px rgba(157, 0, 255, 0.3); } to { transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 0, 230, 0.5); } }
+.block { position: absolute; background: linear-gradient(45deg, rgba(157, 0, 255, 0.25), rgba(255, 0, 230, 0.25)); border: 1px solid rgba(179, 136, 255, 0.3); box-shadow: 0 0 12px rgba(157, 0, 255, 0.3), inset 0 0 4px rgba(255,255,255,0.15); animation: floatAnimation 14s infinite linear, blockPulse 3.5s infinite alternate; opacity: 0; border-radius: 6px; will-change: transform, opacity; } /* Slower */
+@keyframes floatAnimation { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateY(-110vh) rotate(600deg); opacity: 0; } }
+@keyframes blockPulse { from { transform: scale(0.95); box-shadow: 0 0 8px rgba(157, 0, 255, 0.2); } to { transform: scale(1.05); box-shadow: 0 0 18px rgba(255, 0, 230, 0.4); } }
 
-.hero-content {
-    text-align: center; max-width: 900px; padding: 0 1rem; position: relative; z-index: 10;
-    opacity: 0; animation: popIn var(--slow-duration) cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s forwards;
-}
+.hero-content { text-align: center; max-width: 900px; padding: 0 1rem; position: relative; z-index: 10; opacity: 0; animation: popIn var(--slow-duration) cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s forwards; }
 @keyframes popIn { from { opacity: 0; transform: scale(0.8) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 .title-container { position: relative; margin-bottom: 2rem; perspective: 1200px; }
 
-/* --- TITLE WITH CHARACTER WOBBLE --- */
+/* --- TITLE WITH CHARACTER WOBBLE & WRAP FIX --- */
 .title-main {
-    font-family: 'Orbitron', sans-serif; font-size: clamp(3.5rem, 12vw, 6.5rem); font-weight: 900;
-    display: inline-block; margin: 0; position: relative; z-index: 5; letter-spacing: -4px;
-    /* Removed floatTitle animation */
+    font-family: 'Orbitron', sans-serif; font-size: clamp(3rem, 11vw, 6rem); /* Slightly smaller max */ font-weight: 900;
+    display: inline-block; margin: 0; position: relative; z-index: 5;
+    letter-spacing: -2px; /* *** FIX: Less negative spacing *** */
+    white-space: nowrap; /* *** FIX: Force single line *** */
     color: #fff;
-    text-shadow: 0 0 5px #fff, 0 0 15px var(--glow-color), 0 0 30px var(--glow-color), 0 0 50px var(--neon-purple), 0 0 80px var(--neon-pink);
+    text-shadow: 0 0 5px #fff, 0 0 15px var(--glow-color), 0 0 30px var(--glow-color), 0 0 50px var(--neon-purple); /* Slightly reduced last shadow */
 }
-/* Add styles for individual character spans */
-.title-char {
-    display: inline-block; /* Important for transform */
-    animation-duration: 3s; /* Base duration */
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-    will-change: transform; /* Performance hint */
-}
-/* Apply specific animations and delays */
+.title-char { display: inline-block; animation-duration: 3s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; will-change: transform; }
 .char-1 { animation-name: charFloat1; animation-delay: 0.1s; }
 .char-2 { animation-name: charFloat2; animation-delay: 0.3s; }
 .char-3 { animation-name: charFloat3; animation-delay: 0.2s; }
@@ -117,38 +93,16 @@ nav { display: flex; justify-content: space-between; align-items: center; max-wi
 .char-7 { animation-name: charFloat1; animation-delay: 0.1s; } /* V */
 .char-8 { animation-name: charFloat3; animation-delay: 0.4s; } /* 2 */
 
-/* Restore Keyframes for Character Wobble */
-@keyframes charFloat1 {
-    0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-    25% { transform: translateY(-4px) rotate(1.5deg) scale(1.04); } /* Slightly more wobble */
-    75% { transform: translateY(3px) rotate(-0.8deg) scale(0.97); }
-}
-@keyframes charFloat2 {
-    0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-    30% { transform: translateY(3px) rotate(-1.5deg) scale(0.96); }
-    70% { transform: translateY(-3px) rotate(0.8deg) scale(1.03); }
-}
-@keyframes charFloat3 {
-    0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-    40% { transform: translateY(-4px) rotate(-1deg) scale(1.02); }
-    80% { transform: translateY(2px) rotate(1deg) scale(0.98); }
-}
+@keyframes charFloat1 { 0%, 100% { transform: translateY(0) rotate(0deg) scale(1); } 25% { transform: translateY(-4px) rotate(1.5deg) scale(1.04); } 75% { transform: translateY(3px) rotate(-0.8deg) scale(0.97); } }
+@keyframes charFloat2 { 0%, 100% { transform: translateY(0) rotate(0deg) scale(1); } 30% { transform: translateY(3px) rotate(-1.5deg) scale(0.96); } 70% { transform: translateY(-3px) rotate(0.8deg) scale(1.03); } }
+@keyframes charFloat3 { 0%, 100% { transform: translateY(0) rotate(0deg) scale(1); } 40% { transform: translateY(-4px) rotate(-1deg) scale(1.02); } 80% { transform: translateY(2px) rotate(1deg) scale(0.98); } }
 
-/* Title layers only get pulse animation now */
-.title-layer {
-    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    display: flex; justify-content: center; align-items: center;
-    font-family: 'Orbitron', sans-serif; font-size: clamp(3.5rem, 12vw, 6.5rem);
-    font-weight: 900; letter-spacing: -4px; pointer-events: none; color: transparent;
-    /* Removed floatTitle animation */
-    will-change: opacity, filter, text-shadow;
-}
+.title-layer { /* Keep layers, but no separate animations */ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; align-items: center; font-family: 'Orbitron', sans-serif; font-size: clamp(3rem, 11vw, 6rem); font-weight: 900; letter-spacing: -2px; /* Match main title */ white-space: nowrap; /* Match main title */ pointer-events: none; color: transparent; will-change: opacity, filter, text-shadow; }
 .title-layer-1 { z-index: 4; }
-.title-layer-2 { animation: pulseLayer 3s ease-in-out infinite alternate; text-shadow: 0 0 25px var(--neon-purple); transform: translateZ(-3px); filter: blur(3px); opacity: 0.8; z-index: 3; }
-.title-layer-3 { animation: pulseLayer 3s ease-in-out infinite alternate-reverse; text-shadow: 0 0 35px var(--neon-pink); transform: translateZ(-6px); filter: blur(6px); opacity: 0.7; z-index: 2; }
-.title-layer-4 { text-shadow: 0 0 70px rgba(157, 0, 255, 0.7); transform: translateZ(-12px); filter: blur(12px); opacity: 0.6; z-index: 1; }
-
-@keyframes pulseLayer { from { opacity: 0.6; filter: blur(4px); } to { opacity: 1; filter: blur(8px); } }
+.title-layer-2 { animation: pulseLayer 3s ease-in-out infinite alternate; text-shadow: 0 0 20px var(--neon-purple); transform: translateZ(-3px); filter: blur(2.5px); opacity: 0.8; z-index: 3; }
+.title-layer-3 { animation: pulseLayer 3s ease-in-out infinite alternate-reverse; text-shadow: 0 0 30px var(--neon-pink); transform: translateZ(-6px); filter: blur(5px); opacity: 0.7; z-index: 2; }
+.title-layer-4 { text-shadow: 0 0 60px rgba(157, 0, 255, 0.6); transform: translateZ(-12px); filter: blur(10px); opacity: 0.6; z-index: 1; }
+@keyframes pulseLayer { from { opacity: 0.6; filter: blur(4px); } to { opacity: 1; filter: blur(7px); } } /* Slightly less blur */
 
 .hero-content p { font-size: clamp(1.1rem, 2.8vw, 1.3rem); margin-bottom: 3rem; margin-top: 1.8rem; color: var(--text-secondary); line-height: 1.7; max-width: 650px; margin-left: auto; margin-right: auto; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); font-weight: 500; }
 
@@ -159,74 +113,85 @@ nav { display: flex; justify-content: space-between; align-items: center; max-wi
 .cta-button:hover::before, .buy-button:hover::before { left: 130%; }
 @keyframes gradientAnimation { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-/* --- Features Section --- */
-.features {
-    padding: 7rem 1rem; max-width: 1200px; margin: 0 auto; opacity: 0;
-    animation: slideUpFadeIn var(--slow-duration) ease-out forwards;
-    animation-timeline: view(); animation-range: entry 10% cover 30%; /* Keep entrance for this section */
+/* --- Section & Card Entrance (Using JS Reveal) --- */
+/* Remove timeline animations, use JS class .active to trigger */
+.features, .pricing {
+    padding: 7rem 1rem; max-width: 1200px; margin: 0 auto;
+    /* Basic reveal state, animation triggered by .active */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity var(--med-duration) ease-out, transform var(--med-duration) ease-out;
+    will-change: opacity, transform;
 }
-@keyframes slideUpFadeIn { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+.features.active, .pricing.active { /* State when revealed by JS */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Individual card entrance - triggered when parent section is active */
+.feature-card, .price-card {
+    background: linear-gradient(135deg, rgba(25, 25, 45, 0.8), rgba(40, 20, 60, 0.8)); border-radius: 10px; padding: 2.2rem;
+    transition: transform var(--fast-duration) ease-out, box-shadow var(--fast-duration) ease-out, border-color var(--fast-duration) ease-out; /* Keep hover transition */
+    position: relative; overflow: hidden; border: 1px solid rgba(157, 0, 255, 0.3); box-shadow: 0 8px 20px rgba(0,0,0, 0.3);
+    /* Basic reveal state */
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity var(--med-duration) ease-out 0.2s, transform var(--med-duration) ease-out 0.2s; /* Add delay to base transition */
+    will-change: transform, box-shadow, opacity;
+}
+.features.active .feature-card,
+.pricing.active .price-card { /* State when revealed by JS */
+    opacity: 1;
+    transform: scale(1);
+}
+/* Stagger card reveal using transition-delay (simpler than animation-delay here) */
+.features-grid .feature-card:nth-child(1) { transition-delay: 0.1s; }
+.features-grid .feature-card:nth-child(2) { transition-delay: 0.2s; }
+.features-grid .feature-card:nth-child(3) { transition-delay: 0.3s; }
+.features-grid .feature-card:nth-child(4) { transition-delay: 0.4s; }
+.features-grid .feature-card:nth-child(5) { transition-delay: 0.5s; }
+.features-grid .feature-card:nth-child(6) { transition-delay: 0.6s; }
+
+
 .section-title { text-align: center; font-size: clamp(2.2rem, 6vw, 3rem); margin-bottom: 4rem; font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, var(--neon-pink), var(--light-purple), var(--neon-purple)); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 15px rgba(157, 0, 255, 0.6); letter-spacing: 1.5px; animation: gradientAnimation 5s ease infinite, pulseTextShadow 2s infinite alternate; }
 @keyframes pulseTextShadow { from { text-shadow: 0 0 10px rgba(157, 0, 255, 0.4); } to { text-shadow: 0 0 25px rgba(255, 0, 230, 0.7); } }
 .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
-.feature-card { background: linear-gradient(135deg, rgba(25, 25, 45, 0.8), rgba(40, 20, 60, 0.8)); border-radius: 10px; padding: 2.2rem; transition: all var(--fast-duration) ease-out; position: relative; overflow: hidden; border: 1px solid rgba(157, 0, 255, 0.3); box-shadow: 0 8px 20px rgba(0,0,0, 0.3); opacity: 0; transform: scale(0.9) rotate(-5deg); animation: cardPopIn var(--med-duration) cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; will-change: transform, box-shadow, opacity; }
-.features-grid .feature-card:nth-child(1) { animation-delay: 0.1s; }
-.features-grid .feature-card:nth-child(2) { animation-delay: 0.2s; }
-.features-grid .feature-card:nth-child(3) { animation-delay: 0.3s; }
-.features-grid .feature-card:nth-child(4) { animation-delay: 0.4s; }
-.features-grid .feature-card:nth-child(5) { animation-delay: 0.5s; }
-.features-grid .feature-card:nth-child(6) { animation-delay: 0.6s; }
-@keyframes cardPopIn { to { opacity: 1; transform: scale(1) rotate(0deg); } }
+
 .feature-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 5px; background: linear-gradient(90deg, transparent, var(--neon-pink), var(--light-purple), transparent); transition: left var(--med-duration) ease-out; }
 .feature-card:hover::before { left: 100%; }
-.feature-card:hover { transform: translateY(-12px) scale(1.05) rotate(1deg); box-shadow: 0 15px 35px rgba(157, 0, 255, 0.4), 0 0 30px rgba(255, 0, 230, 0.3); border-color: var(--light-purple); background: linear-gradient(135deg, rgba(35, 35, 55, 0.9), rgba(50, 30, 70, 0.9)); }
+.feature-card:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 12px 30px rgba(157, 0, 255, 0.35), 0 0 25px rgba(255, 0, 230, 0.25); border-color: var(--light-purple); background: linear-gradient(135deg, rgba(35, 35, 55, 0.9), rgba(50, 30, 70, 0.9)); }
 .feature-card h3 { font-size: 1.6rem; margin-bottom: 1rem; color: var(--light-purple); text-shadow: 0 0 15px var(--light-purple); display: flex; align-items: center; font-weight: 700; }
 .feature-card p { color: var(--text-secondary); line-height: 1.6; font-size: 1rem; }
 
 /* --- Reviews Section --- */
-.reviews { /* ***MODIFICATION***: Removed entrance animation properties */
-    padding: 6rem 0; background: linear-gradient(180deg, rgba(30, 12, 50, 0.7) 0%, var(--dark-bg) 100%);
-    position: relative; overflow: hidden;
-    /* opacity: 0; */ /* Removed */
-    /* animation: slideUpFadeIn var(--slow-duration) ease-out forwards; */ /* Removed */
-    /* animation-timeline: view(); */ /* Removed */
-    /* animation-range: entry 10% cover 30%; */ /* Removed */
-}
-.reviews::before { content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: radial-gradient(circle at 10% 40%, rgba(157, 0, 255, 0.2) 0%, transparent 25%), radial-gradient(circle at 90% 60%, rgba(255, 0, 230, 0.2) 0%, transparent 25%); pointer-events: none; animation: backgroundPulse 10s infinite alternate ease-in-out; }
-.reviews-container { width: 100%; overflow: hidden; position: relative; /* Masking removed previously */ }
+/* *** Ensure no lingering entrance animation styles *** */
+.reviews { padding: 6rem 0; background: linear-gradient(180deg, rgba(30, 12, 50, 0.7) 0%, var(--dark-bg) 100%); position: relative; overflow: hidden; opacity: 1; /* Ensure visible by default */ transform: none; /* Ensure no default transform */ }
+.reviews::before { content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: radial-gradient(circle at 10% 40%, rgba(157, 0, 255, 0.15) 0%, transparent 25%), radial-gradient(circle at 90% 60%, rgba(255, 0, 230, 0.15) 0%, transparent 25%); pointer-events: none; animation: backgroundPulse 10s infinite alternate ease-in-out; }
+.reviews-container { width: 100%; overflow: hidden; position: relative; }
 .reviews-track { display: flex; width: fit-content; animation: scrollReviews 25s linear infinite; will-change: transform; transition: animation-play-state 0.5s ease; }
 .reviews-track:hover { animation-play-state: paused; }
 @keyframes scrollReviews { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-.review-card { flex: 0 0 350px; background: rgba(40, 30, 55, 0.85); margin: 0 1.5rem; padding: 2rem; border-radius: 10px; border: 1px solid rgba(157, 0, 255, 0.4); box-shadow: 0 0 15px rgba(157, 0, 255, 0.25), 0 5px 10px rgba(0,0,0,0.3); transition: transform var(--fast-duration) ease, box-shadow var(--fast-duration) ease;
-    /* Keep card entrance animation, but it won't be scroll-triggered like the section was */
-    opacity: 0; transform: translateY(20px); animation: cardPopIn var(--med-duration) ease-out forwards; will-change: transform, box-shadow, opacity;
-}
+.review-card { flex: 0 0 350px; background: rgba(40, 30, 55, 0.85); margin: 0 1.5rem; padding: 2rem; border-radius: 10px; border: 1px solid rgba(157, 0, 255, 0.4); box-shadow: 0 0 15px rgba(157, 0, 255, 0.25), 0 5px 10px rgba(0,0,0,0.3); transition: transform var(--fast-duration) ease, box-shadow var(--fast-duration) ease; will-change: transform, box-shadow; /* Removed opacity/anim */ }
 .review-card:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 0 25px rgba(157, 0, 255, 0.4), 0 8px 15px rgba(0,0,0,0.2); }
 .review-card .stars { color: var(--neon-pink); margin-bottom: 1.2rem; font-size: 1.2rem; text-shadow: 0 0 8px var(--neon-pink); animation: pulseTextShadow 1.5s infinite alternate; }
 .review-card .review-text { color: var(--text-primary); line-height: 1.7; margin-bottom: 1.2rem; font-size: 1rem; font-style: italic; text-shadow: none; }
 .review-card .reviewer { font-weight: 700; color: var(--light-purple); text-shadow: 0 0 12px var(--light-purple); font-size: 0.95rem; text-align: right; }
 
 /* --- Pricing Section --- */
-.pricing { /* Keep section entrance */
-    padding: 7rem 1rem; max-width: 1200px; margin: 0 auto; text-align: center;
-    opacity: 0; animation: slideUpFadeIn var(--slow-duration) ease-out forwards;
-    animation-timeline: view(); animation-range: entry 10% cover 30%;
-}
-.price-card { max-width: 420px; margin: 0 auto; background: radial-gradient(ellipse at top, rgba(40, 40, 60, 0.9), rgba(15, 10, 25, 0.95)); backdrop-filter: blur(8px); border-radius: 15px; padding: 3.5rem 3rem; border: 2px solid; border-image-slice: 1; border-image-source: linear-gradient(to bottom, var(--neon-purple), var(--neon-pink)); position: relative; overflow: hidden; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 rgba(157, 0, 255, 0); animation: cardEntrance var(--slow-duration) ease-out forwards, borderPulse 3s infinite alternate; will-change: transform, box-shadow, border-image-source; }
-@keyframes cardEntrance { from { opacity: 0; transform: perspective(1000px) rotateY(-20deg) scale(0.9); } to { opacity: 1; transform: perspective(1000px) rotateY(0deg) scale(1); } }
+.price-card { margin: 0 auto; background: radial-gradient(ellipse at top, rgba(40, 40, 60, 0.9), rgba(15, 10, 25, 0.95)); backdrop-filter: blur(8px); border-radius: 15px; padding: 3.5rem 3rem; border: 2px solid; border-image-slice: 1; border-image-source: linear-gradient(to bottom, var(--neon-purple), var(--neon-pink)); position: relative; overflow: hidden; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease; /* Simplified transition */ box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 rgba(157, 0, 255, 0); animation: borderPulse 3s infinite alternate; /* Keep border pulse, entrance handled by .active */ will-change: transform, box-shadow, border-image-source; max-width: 420px; } /* Ensure max-width */
 @keyframes borderPulse { from { border-image-source: linear-gradient(to bottom, var(--neon-purple), var(--neon-pink)); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 10px rgba(157, 0, 255, 0.3); } to { border-image-source: linear-gradient(to bottom, var(--neon-pink), var(--neon-purple)); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 0, 230, 0.6); } }
-.price-card:hover { transform: translateY(-15px) scale(1.05) perspective(1500px) rotateX(5deg) rotateY(-5deg); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), 0 0 40px rgba(157, 0, 255, 0.7); }
+.price-card:hover { transform: translateY(-12px) scale(1.03); /* Removed 3D tilt for compatibility */ box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3), 0 0 35px rgba(157, 0, 255, 0.6); }
 .price-amount { font-family: 'Orbitron', sans-serif; font-size: clamp(3.5rem, 12vw, 5rem); font-weight: 900; margin-bottom: 1.5rem; color: #fff; text-shadow: 0 0 10px #fff, 0 0 25px var(--glow-color), 0 0 45px var(--glow-color), 0 0 70px var(--neon-purple); animation: priceGlow 2s ease-in-out infinite alternate; will-change: text-shadow; }
 @keyframes priceGlow { from { text-shadow: 0 0 10px #fff, 0 0 25px var(--glow-color), 0 0 45px var(--glow-color), 0 0 70px var(--neon-purple); } to { text-shadow: 0 0 15px #fff, 0 0 35px var(--glow-color), 0 0 60px var(--neon-purple), 0 0 90px var(--neon-pink); } }
 .price-description { color: var(--text-secondary); margin-bottom: 2.5rem; line-height: 1.6; font-size: 1.1rem; font-weight: 500; }
 .price-features { list-style: none; margin-bottom: 3rem; text-align: left; padding: 0 1rem; max-width: 320px; margin-left: auto; margin-right: auto; }
-.price-features li { margin-bottom: 1rem; color: var(--text-primary); font-size: 1rem; display: flex; align-items: center; opacity: 0; transform: translateX(-20px); animation: featureSlideIn var(--med-duration) ease-out forwards; will-change: transform, opacity; }
-.price-features li:nth-child(1) { animation-delay: 0.2s; }
-.price-features li:nth-child(2) { animation-delay: 0.3s; }
-.price-features li:nth-child(3) { animation-delay: 0.4s; }
-.price-features li:nth-child(4) { animation-delay: 0.5s; }
-.price-features li:nth-child(5) { animation-delay: 0.6s; }
-@keyframes featureSlideIn { to { opacity: 1; transform: translateX(0); } }
+.price-features li { margin-bottom: 1rem; color: var(--text-primary); font-size: 1rem; display: flex; align-items: center; opacity: 0; transform: translateX(-20px); transition: opacity var(--med-duration) ease-out, transform var(--med-duration) ease-out; /* Use transition for reveal */ will-change: transform, opacity; }
+.pricing.active .price-features li { opacity: 1; transform: translateX(0); } /* Reveal with parent */
+.pricing.active .price-features li:nth-child(1) { transition-delay: 0.2s; } /* Stagger via transition */
+.pricing.active .price-features li:nth-child(2) { transition-delay: 0.3s; }
+.pricing.active .price-features li:nth-child(3) { transition-delay: 0.4s; }
+.pricing.active .price-features li:nth-child(4) { transition-delay: 0.5s; }
+.pricing.active .price-features li:nth-child(5) { transition-delay: 0.6s; }
 .price-features li i { margin-top: 0; flex-shrink: 0; transform-origin: center center; animation: iconPulse 2s infinite alternate 0.5s; }
 
 /* --- Footer --- */
@@ -238,9 +203,10 @@ footer { background: #050008; padding: 4rem 1rem; text-align: center; border-top
 .footer-links a i { animation: iconPulse 2s infinite alternate 1s; }
 .copyright { color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; }
 
-/* --- Scroll Reveal --- */
-.reveal-element { /* Still used on section titles and pricing card */ opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); will-change: opacity, transform; }
-.reveal-element.active { opacity: 1; transform: translateY(0); }
+/* --- Scroll Reveal (JS Driven) --- */
+.reveal-element { /* Used on sections, section titles, individual cards */ opacity: 0; transition: opacity var(--med-duration) ease-out, transform var(--med-duration) ease-out; will-change: opacity, transform; }
+.reveal-element:not(.features):not(.pricing):not(.price-card):not(.feature-card) { transform: translateY(30px); } /* Default slide */
+.reveal-element.active { opacity: 1; transform: none; } /* Default reveal */
 
 /* --- Loading Animation --- */
 .loading-animation { position: fixed; width: 100%; height: 100%; top: 0; left: 0; background-color: var(--dark-bg); z-index: 10000; display: flex; justify-content: center; align-items: center; transition: opacity 0.6s ease-out 0.3s; opacity: 1; }
@@ -263,5 +229,5 @@ footer { background: #050008; padding: 4rem 1rem; text-align: center; border-top
     header, .nav-links a, .hero-content, .title-main, .title-layer, .title-char, .cta-button, .buy-button, .features, .feature-card, .reviews, .review-card, .pricing, .price-card, .price-features li, .footer-links a, .iconPulse, .block { transform: none !important; animation: none !important; }
     .reviews-track { animation: none !important; }
     .nav-links a:hover, .nav-links a:focus, .cta-button:hover, .buy-button:hover, .cta-button:focus, .buy-button:focus, .feature-card:hover, .price-card:hover, .review-card:hover, .footer-links a:hover, .footer-links a:focus { transform: none !important; }
-    .feature-card, .price-features li, .features, .reviews, .pricing, header, .hero-content { opacity: 1 !important; }
+    .feature-card, .price-features li, .features, .reviews, .pricing, header, .hero-content, .reveal-element { opacity: 1 !important; transform: none !important; } /* Ensure visibility and no transform */
 }
