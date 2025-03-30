@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FRL GUI V2</title>
+    <link rel="icon" href="frl.png" type="image/png">
+    <meta property="og:title" content="FRL GUI V2">
+    <meta property="og:description" content="FRL GUI V2 is the best Gorilla Tag GUI cheat providing undetected mods and insane laggers.">
+    <meta property="og:image" content="frl.png">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#9d00ff">
+    <meta property="og:color" content="#9d00ff">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
         
@@ -70,6 +77,7 @@
         }
         
         .logo {
+            font-family: 'Orbitron', sans-serif;
             font-size: 2rem;
             font-weight: bold;
             margin-left: 0;
@@ -123,7 +131,6 @@
             left: -100%;
         }
         
-        /* Hero Section with Improved Effects */
         .hero {
             height: 100vh;
             display: flex;
@@ -169,7 +176,6 @@
             }
         }
         
-        /* Improved Floating Blocks */
         .floating-blocks {
             position: absolute;
             top: 0;
@@ -207,7 +213,6 @@
             }
         }
         
-        /* Hero Content with Dramatically Improved Title */
         .hero-content {
             text-align: center;
             max-width: 800px;
@@ -216,7 +221,6 @@
             z-index: 10;
         }
         
-        /* Dramatic Title Improvement with Character Animation */
         .title-container {
             position: relative;
             margin-bottom: 2rem;
@@ -346,7 +350,6 @@
             100% { transform: translateZ(-4px) translateY(0); filter: blur(4px); }
         }
         
-        /* Version Tag */
         .version-tag {
             position: absolute;
             top: -10px;
@@ -370,7 +373,6 @@
             50% { transform: rotate(15deg) scale(1.1); }
         }
         
-        /* Glitch Effect */
         .glitch-effect {
             position: absolute;
             top: 0;
@@ -391,8 +393,7 @@
             45%, 47% { opacity: 0.6; transform: translate(1px, -1px); }
             73%, 75% { opacity: 0.7; transform: translate(-2px, 2px); }
         }
-        
-        /* Hero Paragraph with Better Styling */
+
         .hero-content p {
             font-size: 1.25rem;
             margin-bottom: 2.5rem;
@@ -595,8 +596,7 @@
             margin: 0 auto;
             text-align: center;
         }
-        
-        /* Redesigned Pricing Box */
+
         .price-card {
             max-width: 400px;
             margin: 0 auto;
@@ -887,10 +887,8 @@
 
     <section class="hero">
         <div class="floating-blocks">
-            <!-- Blocks will be generated via JS -->
         </div>
         <div class="hero-content">
-            <!-- Dramatically Improved Title -->
             <div class="title-container">
                 <div class="glitch-effect"></div>
                 <div class="title-layer title-layer-4">FRL GUI V2</div>
@@ -1108,7 +1106,6 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Loading animation
             const loadingAnimation = document.createElement('div');
             loadingAnimation.classList.add('loading-animation');
             loadingAnimation.innerHTML = `
@@ -1119,7 +1116,6 @@
             `;
             document.body.appendChild(loadingAnimation);
             
-            // After short delay, fade out loading animation
             setTimeout(() => {
                 loadingAnimation.style.opacity = '0';
                 setTimeout(() => {
@@ -1127,7 +1123,6 @@
                 }, 500);
             }, 1500);
             
-            // Generate floating blocks (optimized)
             const floatingBlocks = document.querySelector('.floating-blocks');
             const colors = ['rgba(157, 0, 255, 0.2)', 'rgba(179, 136, 255, 0.2)', 'rgba(131, 56, 236, 0.2)', 'rgba(98, 0, 234, 0.2)'];
             const blockFragment = document.createDocumentFragment();
@@ -1158,7 +1153,6 @@
             
             floatingBlocks.appendChild(blockFragment);
             
-            // Add mouse effects (optimized)
             const follower = document.createElement('div');
             follower.classList.add('mouse-follower');
             document.body.appendChild(follower);
@@ -1207,7 +1201,6 @@
             let mouseX = 0, mouseY = 0;
             let followerX = 0, followerY = 0;
             
-            // Throttled mouse event for better performance
             let ticking = false;
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
@@ -1246,7 +1239,6 @@
             }
             animateFollower();
             
-            // Scroll reveal animation
             const revealElements = document.querySelectorAll('.features-grid > div, .price-card, .section-title');
             revealElements.forEach(element => {
                 element.classList.add('reveal-element');
@@ -1264,9 +1256,8 @@
             }
             
             window.addEventListener('scroll', checkScroll);
-            setTimeout(checkScroll, 100); // Initial check
-            
-            // Click animation (optimized)
+            setTimeout(checkScroll, 100);
+
             document.addEventListener('click', (e) => {
                 const ripple = document.createElement('div');
                 ripple.classList.add('ripple');
@@ -1274,7 +1265,6 @@
                 ripple.style.top = e.clientY + 'px';
                 document.body.appendChild(ripple);
                 
-                // Create particle effects on click (limited number for performance)
                 const particleFragment = document.createDocumentFragment();
                 
                 for (let i = 0; i < 5; i++) {
@@ -1331,7 +1321,6 @@
                 }, 1000);
             });
             
-            // Duplicate review cards for infinite scroll
             const reviewsTrack = document.querySelector('.reviews-track');
             const reviewCards = document.querySelectorAll('.review-card');
             const reviewFragment = document.createDocumentFragment();
@@ -1358,7 +1347,6 @@
                 });
             });
             
-            // Add glitch effect to title periodically (optimized)
             const glitchEffect = document.querySelector('.glitch-effect');
             
             function createGlitchAnimation() {
@@ -1375,7 +1363,6 @@
                     
                     glitchEffect.innerHTML = glitchHTML;
                     
-                    // Schedule next glitch
                     setTimeout(createGlitchAnimation, Math.random() * 10000 + 5000);
                 }, Math.random() * 5000 + 2000);
             }
