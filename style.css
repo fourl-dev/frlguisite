@@ -1,0 +1,804 @@
+/* --- Base Variables and Imports --- */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Segoe+UI:wght@400;700&display=swap');
+
+:root {
+    --neon-purple: #9d00ff;
+    --neon-pink: #ff00e6;
+    --deep-purple: #6200ea;
+    --dark-bg: #0a0a12; /* Slightly darker for more contrast */
+    --light-purple: #b388ff;
+    --glow-color: #bf5dff;
+    --text-primary: rgba(255, 255, 255, 0.95); /* Slightly brighter */
+    --text-secondary: rgba(255, 255, 255, 0.75);
+}
+
+/* --- General Styles & Resets --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Native smooth scroll */
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* --- Icons --- */
+.feature-icon {
+    margin-right: 10px;
+    color: var(--light-purple);
+    text-shadow: 0 0 8px rgba(157, 0, 255, 0.7);
+    width: 1.5em; /* Align icon widths */
+    text-align: center;
+}
+
+.nav-icon {
+    margin-right: 8px;
+    color: white;
+}
+
+.check-icon {
+    margin-right: 12px;
+    color: var(--light-purple);
+    text-shadow: 0 0 5px rgba(157, 0, 255, 0.5);
+}
+
+/* --- Header & Navigation --- */
+header {
+    background: rgba(16, 16, 32, 0.85); /* Slightly less transparent */
+    backdrop-filter: blur(8px);
+    padding: 1.2rem 1rem; /* Adjusted padding */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure header is on top */
+    box-shadow: 0 0 20px rgba(157, 0, 255, 0.3);
+    border-bottom: 1px solid rgba(157, 0, 255, 0.15);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    width: 95%; /* Use percentage */
+    margin: 0 auto;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem; /* Adjusted size */
+    font-weight: bold;
+    background: linear-gradient(90deg, var(--light-purple), var(--neon-purple), var(--neon-pink), var(--light-purple));
+    background-size: 300% 100%;
+    animation: gradientAnimation 4s ease infinite; /* Slightly slower */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(157, 0, 255, 0.8); /* Simplified */
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem; /* Adjusted gap */
+}
+
+.nav-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: color 0.2s ease, background-color 0.2s ease; /* Simpler transition */
+    display: inline-flex; /* Align icon and text */
+    align-items: center;
+}
+
+.nav-links a:hover,
+.nav-links a:focus { /* Add focus style */
+    color: white;
+    background-color: rgba(157, 0, 255, 0.3);
+    outline: none; /* Remove default, but ensure focus is visible */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* --- Hero Section --- */
+.hero {
+    min-height: 100vh; /* Use min-height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(98, 0, 234, 0.2) 0%, var(--dark-bg) 70%); /* Adjusted gradient */
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 1rem 4rem 1rem; /* Add padding for fixed header */
+}
+
+/* Hero Background Effects */
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0; left: 0;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(157, 0, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 230, 0.1) 0%, transparent 30%);
+    animation: backgroundPulse 12s infinite alternate ease-in-out; /* Slower */
+    opacity: 0.7;
+}
+
+@keyframes backgroundPulse {
+    from { opacity: 0.5; transform: scale(1); }
+    to { opacity: 1; transform: scale(1.05); }
+}
+
+/* Floating Blocks */
+.floating-blocks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none; /* Blocks should not interfere with interaction */
+}
+
+.block {
+    position: absolute;
+    background: rgba(157, 0, 255, 0.1); /* Subtler */
+    border: 1px solid rgba(179, 136, 255, 0.2);
+    box-shadow: 0 0 10px rgba(157, 0, 255, 0.2); /* Subtler */
+    animation: floatAnimation 15s infinite linear;
+    opacity: 0;
+    border-radius: 4px;
+    will-change: transform, opacity; /* Performance hint */
+}
+
+@keyframes floatAnimation {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.5; } /* Fade in slower */
+    90% { opacity: 0.5; } /* Fade out slower */
+    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+
+/* Hero Content & Title */
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 10;
+}
+
+.title-container {
+    position: relative;
+    margin-bottom: 1.5rem; /* Reduced margin */
+    perspective: 1000px; /* Increased perspective */
+}
+
+.title-main {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2.8rem, 10vw, 5rem); /* Responsive font size */
+    font-weight: 800;
+    display: inline-block;
+    margin: 0;
+    position: relative; /* Needed for layering context */
+    z-index: 5; /* Ensure main text is above layers */
+    letter-spacing: -2px; /* Less extreme spacing */
+    animation: floatTitle 8s ease-in-out infinite; /* Slower overall float */
+    color: var(--text-primary); /* Base color */
+    text-shadow: 0 0 8px var(--glow-color), 0 0 15px var(--glow-color); /* Adjusted shadow */
+}
+
+@keyframes floatTitle {
+    0%, 100% { transform: translateY(0) rotateX(0deg) scale(1); }
+    50% { transform: translateY(-8px) rotateX(3deg) scale(1.02); } /* Subtler effect */
+}
+
+/* Title Layers for Glow Effect */
+.title-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex; /* Use flex for alignment */
+    justify-content: center;
+    align-items: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2.8rem, 10vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -2px;
+    pointer-events: none; /* Layers should not interfere */
+    color: transparent; /* Hide text, use shadows/effects */
+}
+
+.title-layer-1 { z-index: 4; /* Base text layer, already styled in .title-main */}
+.title-layer-2 {
+    text-shadow: 0 0 15px var(--neon-purple); /* Neon purple glow */
+    transform: translateZ(-2px);
+    filter: blur(2px);
+    opacity: 0.7;
+    z-index: 3;
+    animation: pulseLayer 5s ease-in-out infinite alternate;
+}
+.title-layer-3 {
+    text-shadow: 0 0 20px var(--neon-pink); /* Neon pink glow */
+    transform: translateZ(-4px);
+    filter: blur(4px);
+    opacity: 0.6;
+    z-index: 2;
+    animation: pulseLayer 5s ease-in-out infinite alternate-reverse; /* Offset animation */
+}
+.title-layer-4 { /* Deep outer glow */
+    text-shadow: 0 0 40px rgba(157, 0, 255, 0.5);
+    transform: translateZ(-8px);
+    filter: blur(8px);
+    opacity: 0.4;
+    z-index: 1;
+}
+
+@keyframes pulseLayer { /* Simple pulse for glow layers */
+    from { opacity: 0.5; filter: blur(3px); }
+    to { opacity: 0.8; filter: blur(5px); }
+}
+
+
+/* Hero Paragraph */
+.hero-content p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem); /* Responsive font size */
+    margin-bottom: 2rem;
+    margin-top: 1rem; /* Reduced margin */
+    color: var(--text-secondary); /* Use secondary text color */
+    line-height: 1.7; /* Slightly increased line height */
+    max-width: 600px; /* Constrain width */
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 0 0 5px rgba(157, 0, 255, 0.2); /* Much subtler shadow */
+}
+
+/* --- Buttons --- */
+.cta-button, .buy-button {
+    display: inline-flex; /* Use inline-flex for icon alignment */
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0.9rem 2.2rem; /* Adjusted padding */
+    background: linear-gradient(45deg, var(--deep-purple), var(--neon-pink), var(--neon-purple), var(--neon-pink));
+    background-size: 300% 100%;
+    animation: gradientAnimation 4s ease infinite;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px; /* Slightly softer radius */
+    font-size: clamp(0.9rem, 2vw, 1.1rem); /* Responsive */
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px rgba(157, 0, 255, 0.5); /* Adjusted shadow */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.4); /* Adjusted shadow */
+    letter-spacing: 0.5px;
+    font-family: 'Orbitron', sans-serif;
+    border: none; /* Ensure no default border */
+    cursor: pointer;
+}
+
+.cta-button i, .buy-button i {
+    font-size: 1em; /* Relative icon size */
+}
+
+.cta-button:hover, .buy-button:hover,
+.cta-button:focus, .buy-button:focus { /* Add focus style */
+    transform: translateY(-3px) scale(1.02); /* Subtler hover effect */
+    box-shadow: 0 0 18px rgba(157, 0, 255, 0.8);
+    outline: none; /* Custom focus visibility if needed */
+}
+
+/* Button Shimmer Effect */
+.cta-button::before, .buy-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%; /* Smaller shimmer width */
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease; /* Slower shimmer */
+    transform: skewX(-25deg); /* Angled shimmer */
+}
+
+.cta-button:hover::before, .buy-button:hover::before {
+    left: 125%; /* Ensure shimmer travels across */
+}
+
+@keyframes gradientAnimation { /* Used for logo and buttons */
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* --- Features Section --- */
+.features {
+    padding: 6rem 1rem; /* Adjusted padding */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    font-size: clamp(2rem, 5vw, 2.5rem); /* Responsive */
+    margin-bottom: 3rem;
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 8px rgba(157, 0, 255, 0.4); /* Simplified */
+    letter-spacing: 1px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted min size */
+    gap: 2rem;
+}
+
+.feature-card {
+    background: rgba(16, 16, 32, 0.6); /* Slightly more transparent */
+    border-radius: 8px;
+    padding: 1.8rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(157, 0, 255, 0.15); /* Softer border */
+    box-shadow: 0 5px 15px rgba(0,0,0, 0.2); /* Base shadow */
+}
+
+.feature-card::before { /* Top border accent */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));
+    opacity: 0.8;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px); /* Subtler lift */
+    box-shadow: 0 8px 25px rgba(157, 0, 255, 0.25);
+}
+
+.feature-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    color: var(--light-purple);
+    text-shadow: 0 0 10px rgba(157, 0, 255, 0.5); /* Simplified */
+    display: flex; /* Align icon and text */
+    align-items: center;
+}
+
+.feature-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* --- Reviews Section --- */
+.reviews {
+    padding: 5rem 0; /* Add vertical padding */
+    background: linear-gradient(180deg, var(--dark-bg) 0%, rgba(25, 10, 40, 0.6) 100%); /* Adjusted gradient */
+    position: relative;
+    overflow: hidden; /* Hide overflowing track */
+}
+
+.reviews::before { /* Subtle background pattern */
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0; left: 0;
+    background:
+        radial-gradient(circle at 15% 50%, rgba(157, 0, 255, 0.1) 0%, transparent 30%),
+        radial-gradient(circle at 85% 30%, rgba(255, 0, 230, 0.1) 0%, transparent 30%);
+    pointer-events: none;
+}
+
+.reviews-container {
+    width: 100%;
+    overflow: hidden; /* Needed for marquee */
+    position: relative;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.reviews-track {
+    display: flex;
+    width: fit-content; /* Allow track to be wide */
+    animation: scrollReviews 45s linear infinite; /* Slower scroll */
+    will-change: transform; /* Performance hint */
+}
+
+.reviews-track:hover {
+    animation-play-state: paused; /* Pause on hover */
+}
+
+@keyframes scrollReviews {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Scroll half the duplicated width */
+}
+
+.review-card {
+    flex: 0 0 320px; /* Slightly smaller cards */
+    background: rgba(30, 20, 40, 0.7); /* Slightly more transparent */
+    margin: 0 1rem; /* Adjusted margin */
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(157, 0, 255, 0.2);
+    box-shadow: 0 0 10px rgba(157, 0, 255, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-5px); /* Slight lift on individual card hover */
+}
+
+.review-card .stars {
+    color: var(--neon-pink);
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    text-shadow: 0 0 5px rgba(255, 0, 230, 0.6);
+}
+
+.review-card .review-text {
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    font-style: italic;
+    text-shadow: none; /* Remove shadow for better readability */
+}
+
+.review-card .reviewer {
+    font-weight: bold;
+    color: var(--light-purple);
+    text-shadow: 0 0 8px rgba(157, 0, 255, 0.5); /* Simplified */
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+/* --- Pricing Section --- */
+.pricing {
+    padding: 6rem 1rem; /* Adjusted padding */
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.price-card {
+    max-width: 380px; /* Slightly smaller */
+    margin: 0 auto;
+    background: rgba(18, 19, 28, 0.9); /* Slightly less opaque */
+    backdrop-filter: blur(5px); /* Less intense blur */
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(157, 0, 255, 0.25);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease; /* Smoother transition */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.price-card::before { /* Side accent */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--neon-purple), var(--neon-pink), var(--neon-purple));
+    background-size: 100% 300%;
+    animation: gradientFlow 8s ease infinite; /* Slower flow */
+}
+
+@keyframes gradientFlow {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 0% 100%; }
+}
+
+.price-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(157, 0, 255, 0.4); /* Adjusted hover shadow */
+}
+
+.price-amount {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(3rem, 10vw, 4rem); /* Responsive */
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(157, 0, 255, 0.8), 0 0 30px rgba(157, 0, 255, 0.5);
+    animation: priceGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes priceGlow {
+    from { text-shadow: 0 0 15px rgba(157, 0, 255, 0.6), 0 0 30px rgba(157, 0, 255, 0.3); }
+    to { text-shadow: 0 0 25px rgba(157, 0, 255, 1), 0 0 45px rgba(255, 0, 230, 0.7); }
+}
+
+.price-description {
+    color: var(--text-secondary);
+    margin-bottom: 1.8rem;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.price-features {
+    list-style: none;
+    margin-bottom: 2rem;
+    text-align: left;
+    padding: 0 1rem; /* Indent list items */
+    max-width: 300px; /* Constrain width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.price-features li {
+    margin-bottom: 0.8rem;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    display: flex; /* Align icon and text */
+    align-items: flex-start; /* Align top */
+}
+
+.price-features li i {
+    margin-top: 0.2em; /* Align icon slightly better */
+    flex-shrink: 0; /* Prevent icon shrinking */
+}
+
+
+/* --- Footer --- */
+footer {
+    background: rgba(20, 10, 30, 0.9);
+    padding: 2.5rem 1rem;
+    text-align: center;
+    border-top: 1px solid rgba(157, 0, 255, 0.15);
+    margin-top: 4rem; /* Add space before footer */
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    font-size: 0.95rem;
+    display: inline-flex; /* Align icon */
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-links a:hover,
+.footer-links a:focus {
+    color: var(--light-purple);
+    text-shadow: 0 0 5px var(--light-purple);
+    outline: none;
+}
+
+.copyright {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+}
+
+/* --- Scroll Reveal --- */
+.reveal-element {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    will-change: opacity, transform; /* Performance hint */
+}
+
+.reveal-element.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Loading Animation --- */
+.loading-animation {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--dark-bg);
+    z-index: 10000; /* Highest z-index */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease-out;
+    opacity: 1; /* Start visible */
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.loading-spinner {
+    width: 60px; /* Smaller spinner */
+    height: 60px;
+    margin: 0 auto 20px;
+    position: relative;
+}
+
+.loading-spinner::before,
+.loading-spinner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid transparent; /* Thinner border */
+    border-top-color: var(--neon-purple);
+    border-right-color: var(--neon-pink); /* Use different sides */
+    animation: spin 1.2s linear infinite; /* Faster spin */
+}
+
+.loading-spinner::after {
+     border-top-color: var(--neon-pink); /* Use different sides */
+     border-right-color: var(--neon-purple);
+     animation-delay: -0.6s; /* Offset second spinner */
+}
+
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    color: white;
+    animation: pulseText 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes pulseText {
+    from { opacity: 0.7; text-shadow: 0 0 5px rgba(157, 0, 255, 0.5); }
+    to { opacity: 1; text-shadow: 0 0 15px rgba(157, 0, 255, 1), 0 0 25px rgba(255, 0, 230, 0.8); }
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 1rem;
+    }
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    .reviews-track {
+        animation-duration: 35s; /* Adjust scroll speed */
+    }
+    .price-card {
+        padding: 2rem 1.5rem;
+        max-width: 340px;
+    }
+    .hero {
+        padding-top: 6rem; /* Adjust for smaller header maybe */
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 15px; /* Adjust base font size */
+    }
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    .nav-links {
+        gap: 0.5rem; /* Smaller gap */
+        justify-content: center;
+        flex-wrap: wrap; /* Allow wrapping */
+        font-size: 0.9rem;
+    }
+    .nav-links a {
+        padding: 0.4rem 0.8rem;
+    }
+
+    .logo {
+        font-size: 1.6rem;
+    }
+
+    .cta-button, .buy-button {
+        padding: 0.8rem 1.8rem;
+        font-size: 0.9rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr; /* Single column */
+        gap: 1.5rem;
+    }
+    .review-card {
+        flex-basis: 280px; /* Adjust basis */
+        padding: 1.2rem;
+    }
+    .hero {
+        padding-top: 8rem; /* More padding for stacked nav */
+    }
+    .hero-content p {
+         max-width: 90%;
+    }
+     .price-card {
+        max-width: 90%;
+    }
+    .price-features {
+        padding: 0; /* Remove padding on small screens */
+    }
+}
+
+/* --- Accessibility: Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto; /* Disable smooth scroll */
+    }
+
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        animation-delay: -0.01ms !important; /* Try to force state */
+    }
+
+    /* Explicitly stop marquee */
+    .reviews-track {
+        animation: none;
+    }
+
+    /* Keep essential transitions (like basic hover feedback) if desired,
+       but disable complex/long animations like floats, pulses, glows */
+    .logo,
+    .hero::before,
+    .block,
+    .title-main,
+    .title-layer-2,
+    .title-layer-3,
+    .cta-button, .buy-button, /* Keep basic transition maybe, disable gradient anim */
+    .price-card::before,
+    .price-amount,
+    .loading-spinner::before,
+    .loading-spinner::after,
+    .loading-text {
+        animation: none !important; /* Override all animations */
+    }
+    
+     .cta-button:hover, .buy-button:hover,
+     .cta-button:focus, .buy-button:focus,
+     .feature-card:hover,
+     .price-card:hover {
+         transform: none; /* Disable transforms on hover */
+     }
+}
