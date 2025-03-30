@@ -216,7 +216,7 @@
             z-index: 10;
         }
         
-        /* Dramatic Title Improvement */
+        /* Dramatic Title Improvement with Character Animation */
         .title-container {
             position: relative;
             margin-bottom: 2rem;
@@ -230,11 +230,47 @@
             font-weight: 800;
             position: relative;
             display: inline-block;
-            letter-spacing: 3px;
+            letter-spacing: -8px;
             margin: 0;
             transform-style: preserve-3d;
             padding: 0.5rem 0;
             animation: floatTitle 6s ease-in-out infinite;
+        }
+        
+        .title-char {
+            display: inline-block;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            transform-origin: center;
+        }
+        
+        .char-1 { animation-name: charFloat1; animation-delay: 0.1s; }
+        .char-2 { animation-name: charFloat2; animation-delay: 0.3s; }
+        .char-3 { animation-name: charFloat3; animation-delay: 0.2s; }
+        .char-4 { animation-name: charFloat1; animation-delay: 0.4s; }
+        .char-5 { animation-name: charFloat3; animation-delay: 0.2s; }
+        .char-6 { animation-name: charFloat2; animation-delay: 0.3s; }
+        .char-7 { animation-name: charFloat1; animation-delay: 0.1s; }
+        .char-8 { animation-name: charFloat3; animation-delay: 0.4s; }
+        .char-9 { animation-name: charFloat2; animation-delay: 0.2s; }
+        
+        @keyframes charFloat1 {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            25% { transform: translateY(-3px) rotate(1deg) scale(1.03); }
+            75% { transform: translateY(2px) rotate(-0.5deg) scale(0.98); }
+        }
+        
+        @keyframes charFloat2 {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            30% { transform: translateY(2px) rotate(-1deg) scale(0.97); }
+            70% { transform: translateY(-2px) rotate(0.5deg) scale(1.02); }
+        }
+        
+        @keyframes charFloat3 {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            40% { transform: translateY(-3px) rotate(-0.7deg) scale(1.01); }
+            80% { transform: translateY(1px) rotate(0.7deg) scale(0.99); }
         }
         
         @keyframes floatTitle {
@@ -360,12 +396,15 @@
         .hero-content p {
             font-size: 1.25rem;
             margin-bottom: 2.5rem;
+            margin-top: 2rem;
             color: rgba(255, 255, 255, 1);
             line-height: 1.6;
             text-shadow: 0 0 15px rgba(157, 0, 255, 0.7), 0 0 30px rgba(157, 0, 255, 0.5);
-            max-width: 650px;
+            max-width: 90%;
             margin-left: auto;
             margin-right: auto;
+            letter-spacing: 0.5px;
+            padding: 0 1rem;
         }
         
         .cta-button {
@@ -557,21 +596,19 @@
             text-align: center;
         }
         
+        /* Redesigned Pricing Box */
         .price-card {
             max-width: 400px;
             margin: 0 auto;
-            background: rgba(30, 20, 40, 0.7);
-            border-radius: 10px;
+            background: rgba(18, 19, 28, 0.97);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
             padding: 3rem 2rem;
             border: 1px solid rgba(157, 0, 255, 0.3);
             position: relative;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .price-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 35px rgba(157, 0, 255, 0.7);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        box-shadow 0.5s ease;
         }
         
         .price-card::before {
@@ -579,39 +616,87 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 6px;
             height: 100%;
-            background-size: 400% 400%;
-            background-image: 
-                linear-gradient(45deg, 
-                    rgba(123, 31, 162, 0.5), 
-                    rgba(157, 0, 255, 0.4), 
-                    rgba(103, 58, 183, 0.5), 
-                    rgba(255, 0, 230, 0.4),
-                    rgba(123, 31, 162, 0.5)
-                );
-            z-index: -1;
-            animation: pricingGlowAnimation 8s ease infinite;
+            background: linear-gradient(180deg, var(--neon-purple), var(--neon-pink), var(--neon-purple));
+            background-size: 100% 300%;
+            animation: gradientFlow 10s ease infinite;
         }
         
-        .price-card::after {
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 0%; }
+            50% { background-position: 0% 100%; }
+        }
+        
+        .price-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(157, 0, 255, 0.6);
+        }
+        
+        .price-amount {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            text-shadow: 0 0 25px rgba(157, 0, 255, 1), 0 0 45px rgba(157, 0, 255, 0.7);
+            animation: priceGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes priceGlow {
+            0% {
+                text-shadow: 0 0 25px rgba(157, 0, 255, 0.7), 0 0 45px rgba(157, 0, 255, 0.4);
+            }
+            100% {
+                text-shadow: 0 0 35px rgba(157, 0, 255, 1), 0 0 60px rgba(255, 0, 230, 0.8), 0 0 80px rgba(157, 0, 255, 0.6);
+            }
+        }
+        
+        .buy-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 1.2rem 2.8rem;
+            background: linear-gradient(45deg, #7000be, #ff00e6, #9d00ff, #ff00c8);
+            background-size: 300% 300%;
+            animation: gradientAnimation 3s ease infinite;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.7);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .buy-button i {
+            font-size: 1.2rem;
+        }
+        
+        .buy-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(157, 0, 255, 1);
+        }
+        
+        .buy-button::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background-image: 
-                radial-gradient(
-                    circle, 
-                    transparent 30%, 
-                    rgba(157, 0, 255, 0.1) 40%, 
-                    rgba(255, 0, 230, 0.1) 50%, 
-                    rgba(103, 58, 183, 0.1) 60%, 
-                    transparent 70%
-                );
-            z-index: -2;
-            animation: pricingPulseAnimation 10s infinite alternate;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.7s;
+        }
+        
+        .buy-button:hover::before {
+            left: 100%;
         }
         
         @keyframes pricingGlowAnimation {
@@ -728,12 +813,6 @@
                 font-size: 3.5rem;
             }
             
-            .version-tag {
-                font-size: 0.8rem;
-                right: -20px;
-                top: -5px;
-            }
-            
             .nav-links {
                 gap: 1rem;
             }
@@ -754,13 +833,6 @@
         @media (max-width: 480px) {
             .title-main {
                 font-size: 2.4rem;
-            }
-            
-            .version-tag {
-                font-size: 0.7rem;
-                right: -15px;
-                top: 0;
-                padding: 3px 10px;
             }
             
             nav {
@@ -825,8 +897,17 @@
                 <div class="title-layer title-layer-3">FRL GUI V2</div>
                 <div class="title-layer title-layer-2">FRL GUI V2</div>
                 <div class="title-layer title-layer-1">
-                    <h1 class="title-main">FRL GUI V2</h1>
-                    <div class="version-tag">V 2.0</div>
+                    <h1 class="title-main">
+                        <span class="title-char char-1">F</span>
+                        <span class="title-char char-2">R</span>
+                        <span class="title-char char-3">L</span>
+                        <span class="title-char char-4"> </span>
+                        <span class="title-char char-5">G</span>
+                        <span class="title-char char-6">U</span>
+                        <span class="title-char char-7">I</span>
+                        <span class="title-char char-8"> </span>
+                        <span class="title-char char-9">V2</span>
+                    </h1>
                 </div>
             </div>
             
@@ -936,7 +1017,7 @@
                 <li><i class="fas fa-check check-icon"></i> Undetectable Mods</li>
                 <li><i class="fas fa-check check-icon"></i> Anti-Ban Protection</li>
             </ul>
-            <a href="https://discord.gg/nsm85GHDHb" class="cta-button">BUY NOW</a>
+            <a href="https://discord.gg/nsm85GHDHb" class="buy-button"><i class="fas fa-shopping-cart"></i> BUY NOW</a>
         </div>
     </section>
 
@@ -949,11 +1030,107 @@
         </div>
     </footer>
 
+    <style>
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .loading-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--dark-bg);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .loading-content {
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+        
+        .loading-spinner::before,
+        .loading-spinner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: var(--neon-purple);
+            border-bottom-color: var(--neon-pink);
+            animation: spin 1.5s ease-in-out infinite;
+        }
+        
+        .loading-spinner::before {
+            animation-delay: 0.2s;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: white;
+            animation: pulseText 1.5s infinite alternate;
+        }
+        
+        @keyframes pulseText {
+            0% { text-shadow: 0 0 5px rgba(157, 0, 255, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(157, 0, 255, 1), 0 0 35px rgba(255, 0, 230, 0.8); }
+        }
+    </style>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Generate floating blocks
+            // Loading animation
+            const loadingAnimation = document.createElement('div');
+            loadingAnimation.classList.add('loading-animation');
+            loadingAnimation.innerHTML = `
+                <div class="loading-content">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">Loading FRL GUI V2...</div>
+                </div>
+            `;
+            document.body.appendChild(loadingAnimation);
+            
+            // After short delay, fade out loading animation
+            setTimeout(() => {
+                loadingAnimation.style.opacity = '0';
+                setTimeout(() => {
+                    loadingAnimation.remove();
+                }, 500);
+            }, 1500);
+            
+            // Generate floating blocks (optimized)
             const floatingBlocks = document.querySelector('.floating-blocks');
             const colors = ['rgba(157, 0, 255, 0.2)', 'rgba(179, 136, 255, 0.2)', 'rgba(131, 56, 236, 0.2)', 'rgba(98, 0, 234, 0.2)'];
+            const blockFragment = document.createDocumentFragment();
             
             for (let i = 0; i < 20; i++) {
                 const block = document.createElement('div');
@@ -976,10 +1153,12 @@
                 block.style.animationDuration = `${duration}s`;
                 block.style.animationDelay = `${delay}s`;
                 
-                floatingBlocks.appendChild(block);
+                blockFragment.appendChild(block);
             }
             
-            // Add mouse effects
+            floatingBlocks.appendChild(blockFragment);
+            
+            // Add mouse effects (optimized)
             const follower = document.createElement('div');
             follower.classList.add('mouse-follower');
             document.body.appendChild(follower);
@@ -999,6 +1178,7 @@
                     transition: opacity 0.3s ease;
                     filter: blur(5px);
                     display: none;
+                    will-change: transform;
                 }
                 .ripple {
                     position: fixed;
@@ -1027,24 +1207,32 @@
             let mouseX = 0, mouseY = 0;
             let followerX = 0, followerY = 0;
             
+            // Throttled mouse event for better performance
+            let ticking = false;
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
                 
-                const heroSection = document.querySelector('.hero');
-                const heroRect = heroSection.getBoundingClientRect();
-                
-                if (
-                    e.clientX >= heroRect.left && 
-                    e.clientX <= heroRect.right && 
-                    e.clientY >= heroRect.top && 
-                    e.clientY <= heroRect.bottom
-                ) {
-                    follower.style.display = 'block';
-                    follower.style.opacity = '1';
-                } else {
-                    follower.style.display = 'none';
-                    follower.style.opacity = '0';
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const heroSection = document.querySelector('.hero');
+                        const heroRect = heroSection.getBoundingClientRect();
+                        
+                        if (
+                            mouseX >= heroRect.left && 
+                            mouseX <= heroRect.right && 
+                            mouseY >= heroRect.top && 
+                            mouseY <= heroRect.bottom
+                        ) {
+                            follower.style.display = 'block';
+                            follower.style.opacity = '1';
+                        } else {
+                            follower.style.display = 'none';
+                            follower.style.opacity = '0';
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
             
@@ -1052,13 +1240,33 @@
                 followerX += (mouseX - followerX) * 0.1;
                 followerY += (mouseY - followerY) * 0.1;
                 
-                follower.style.left = followerX + 'px';
-                follower.style.top = followerY + 'px';
+                follower.style.transform = `translate(${followerX}px, ${followerY}px) translate(-50%, -50%)`;
                 
                 requestAnimationFrame(animateFollower);
             }
             animateFollower();
             
+            // Scroll reveal animation
+            const revealElements = document.querySelectorAll('.features-grid > div, .price-card, .section-title');
+            revealElements.forEach(element => {
+                element.classList.add('reveal-element');
+            });
+            
+            function checkScroll() {
+                revealElements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect();
+                    const screenHeight = window.innerHeight;
+                    
+                    if (elementPosition.top < screenHeight * 0.85) {
+                        element.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', checkScroll);
+            setTimeout(checkScroll, 100); // Initial check
+            
+            // Click animation (optimized)
             document.addEventListener('click', (e) => {
                 const ripple = document.createElement('div');
                 ripple.classList.add('ripple');
@@ -1066,7 +1274,9 @@
                 ripple.style.top = e.clientY + 'px';
                 document.body.appendChild(ripple);
                 
-                // Create particle effects on click
+                // Create particle effects on click (limited number for performance)
+                const particleFragment = document.createDocumentFragment();
+                
                 for (let i = 0; i < 5; i++) {
                     const miniBlock = document.createElement('div');
                     miniBlock.style.position = 'fixed';
@@ -1080,13 +1290,14 @@
                     miniBlock.style.zIndex = '9997';
                     miniBlock.style.boxShadow = '0 0 10px rgba(157, 0, 255, 0.5)';
                     miniBlock.style.opacity = '0.7';
+                    miniBlock.style.willChange = 'transform, opacity';
                     
                     const angle = Math.random() * Math.PI * 2;
                     const velocity = Math.random() * 15 + 10;
                     const vx = Math.cos(angle) * velocity;
                     const vy = Math.sin(angle) * velocity;
                     
-                    document.body.appendChild(miniBlock);
+                    particleFragment.appendChild(miniBlock);
                     
                     let posX = e.clientX;
                     let posY = e.clientY;
@@ -1104,16 +1315,16 @@
                         rot += 8;
                         opac -= 0.02;
                         
-                        miniBlock.style.left = posX + 'px';
-                        miniBlock.style.top = posY + 'px';
+                        miniBlock.style.transform = `translate(${posX}px, ${posY}px) rotate(${rot}deg)`;
                         miniBlock.style.opacity = opac;
-                        miniBlock.style.transform = `rotate(${rot}deg)`;
                         
                         requestAnimationFrame(animateMiniBlock);
                     }
                     
                     animateMiniBlock();
                 }
+                
+                document.body.appendChild(particleFragment);
                 
                 setTimeout(() => {
                     ripple.remove();
@@ -1123,13 +1334,16 @@
             // Duplicate review cards for infinite scroll
             const reviewsTrack = document.querySelector('.reviews-track');
             const reviewCards = document.querySelectorAll('.review-card');
+            const reviewFragment = document.createDocumentFragment();
             
             reviewCards.forEach(card => {
                 const clone = card.cloneNode(true);
-                reviewsTrack.appendChild(clone);
+                reviewFragment.appendChild(clone);
             });
             
-            // Smooth scroll for nav links
+            reviewsTrack.appendChild(reviewFragment);
+            
+            // Smooth scroll for nav links (optimized)
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -1144,7 +1358,7 @@
                 });
             });
             
-            // Add glitch effect to title periodically
+            // Add glitch effect to title periodically (optimized)
             const glitchEffect = document.querySelector('.glitch-effect');
             
             function createGlitchAnimation() {
